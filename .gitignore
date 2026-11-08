@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+!.env.prod.example
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+# API : dépôt séparé (korka-dev/buildsen_api), à cloner ici
+backend/

@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="BUILDSEN, plateforme de mise en relation pour les plans, devis, métrés et études techniques au Sénégal. Aperçu de la plateforme avant son lancement à Dakar.">
+<meta property="og:title" content="BUILDSEN — Construire avec confiance.">
+<meta property="og:description" content="Particuliers, ingénieurs et techniciens : aperçu de la plateforme avant son lancement à Dakar.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#075B3C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23075B3C'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='900' font-size='26' fill='white' text-anchor='middle'%3EBS%3C/text%3E%3C/svg%3E">
+<style>
+/* Vitrine publique : sans la barre de démonstration, en pleine largeur, avec un bandeau d'aperçu */
+.demo{display:none!important}
+.stage{padding:0!important}
+.frame{max-width:none!important;border:0!important;border-radius:0!important;min-height:100vh}
+.apercu{background:#075B3C;color:#FFFFFF;font:600 13px/1.4 "Figtree","Segoe UI",system-ui,sans-serif;text-align:center;padding:8px 16px}
+</style>
+</head>
+<body style="margin:0">
+<div class="apercu" role="note">APERÇU du futur site, avec des exemples fictifs : rien de ce que vous faites ici n'est enregistré. <a href="/" data-real style="color:#fff;font-weight:800">Retour au vrai site pour vous inscrire →</a></div><title>BUILDSEN — Aperçu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout : site blanc dominant ; espaces connectés en barre latérale + contenu ; responsive piloté par container queries pour que l'aperçu mobile soit fidèle.
+   Identité volontairement claire uniquement (le logo exige BUILD en noir pur) : fond et couleurs fixés explicitement. */
+:root{
+  --g1:#075B3C; --g2:#15945C; --ink:#000000; --white:#FFFFFF;
+  --mist:#F2F5F3; --stone:#66716A; --slate:#444444;
+  --line:#DCE3DE; --tint:#E7F1EB;
+  --err:#A4281F; --err-bg:#FBEDEB; --warn:#7A5300; --warn-bg:#FBF3E2;
+  --display:"Sora","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --r:10px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--mist);color:var(--ink)}
+body{font-family:var(--body);font-size:15px;line-height:1.55;padding-inline:0}
+h1,h2,h3,h4{font-family:var(--display);color:var(--ink);margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--g1)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--g2);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* Barre de démonstration (hors produit) */
+.demo{background:var(--ink);color:var(--white);padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:13px}
+.demo b{font-family:var(--display);font-weight:700;letter-spacing:.02em}
+.demo .tag{background:#2a2a2a;border-radius:99px;padding:2px 10px;color:#d9e6de}
+.demo .grp{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.demo .grp span{color:#a9b5ae;margin-right:4px}
+.demo button,.demo select{background:#1c1c1c;color:var(--white);border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px;cursor:pointer}
+.demo button.on{background:var(--g2);border-color:var(--g2)}
+.demo select{max-width:230px}
+
+.stage{padding-block:16px 40px;padding-inline:16px}
+.frame{container:app/inline-size;background:var(--white);margin:0 auto;max-width:1240px;border:1px solid var(--line);border-radius:12px;overflow:clip;min-height:70vh}
+.frame.mobile{max-width:390px;border-radius:28px;border:8px solid #111}
+
+/* Logo : typographique, une ligne, sans effet */
+.logo{display:inline-flex;flex-direction:column;text-decoration:none;cursor:pointer;line-height:1;background:none;border:0;padding:0;text-align:left}
+.logo .w{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.01em;white-space:nowrap}
+.logo .w .b{color:#000000}.logo .w .s{color:#075B3C}
+.logo .t{font-family:var(--body);font-size:11.5px;color:#444444;margin-top:5px;letter-spacing:.01em;white-space:nowrap}
+
+/* En-tête public */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--white);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;gap:24px;padding:14px 28px}
+.nav{display:flex;gap:4px;flex:1}
+.nav button{background:none;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--slate);font-weight:500}
+.nav button:hover{background:var(--mist);color:var(--ink)}
+.nav button.on{color:var(--g1);font-weight:700}
+.hdr-act{display:flex;gap:8px;align-items:center}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:42px;height:42px;cursor:pointer;margin-left:auto}
+.mnav{display:none}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer;border:1px solid transparent;text-decoration:none;white-space:nowrap;min-height:44px}
+.btn.p{background:var(--g2);color:var(--white)}
+.btn.p:hover{background:var(--g1)}
+.btn.d{background:var(--g1);color:var(--white)}
+.btn.o{background:var(--white);color:var(--g1);border-color:var(--g1)}
+.btn.o:hover{background:var(--tint)}
+.btn.g{background:none;color:var(--slate);border-color:var(--line)}
+.btn.g:hover{background:var(--mist)}
+.btn.x{background:var(--white);color:var(--err);border-color:#e6c3bf}
+.btn.sm{padding:6px 12px;min-height:34px;font-size:14px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.link{background:none;border:0;padding:0;color:var(--g1);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* Structure */
+.wrap{max-width:1120px;margin:0 auto;padding-inline:28px}
+.sec{padding-block:64px}
+.sec.alt{background:var(--mist)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g1)}
+.lead{font-size:18px;color:var(--slate);max-width:62ch}
+.muted{color:var(--stone)}
+.small{font-size:13px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.between{justify-content:space-between}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:22px;min-width:0}
+.card.flat{background:var(--mist);border-color:transparent}
+.card h3{font-size:17px}
+.hr{height:1px;background:var(--line);border:0;margin:4px 0}
+.ic{width:40px;height:40px;border-radius:9px;background:var(--tint);color:var(--g1);display:grid;place-items:center;flex:none}
+.ic svg{width:22px;height:22px}
+ul.ticks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+ul.ticks li{padding-left:20px;position:relative;color:var(--slate)}
+ul.ticks li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:2px;background:var(--g2)}
+ul.crosses li::before{background:var(--stone);transform:rotate(45deg)}
+
+/* Pastilles de statut */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;font-size:12.5px;font-weight:600;white-space:nowrap;background:var(--mist);color:var(--slate)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.ok{background:var(--tint);color:var(--g1)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.err{background:var(--err-bg);color:var(--err)}
+.pill.ink{background:var(--ink);color:var(--white)}
+.pill.ink::before{display:none}
+.fict{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--warn);background:var(--warn-bg);border-radius:4px;padding:1px 6px;vertical-align:middle}
+.note{border-left:3px solid var(--g2);background:var(--mist);padding:12px 14px;border-radius:0 8px 8px 0;color:var(--slate);font-size:14px}
+.note.w{border-color:var(--warn);background:var(--warn-bg)}
+.note.e{border-color:var(--err);background:var(--err-bg)}
+
+/* Accueil */
+.hero{padding-block:72px 64px}
+.hero-g{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero h1{font-size:48px;line-height:1.08;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--g1)}
+.sheet{border:1px solid var(--line);border-radius:12px;background:var(--white);overflow:hidden}
+.sheet-h{background:var(--mist);padding:12px 16px;display:flex;justify-content:space-between;gap:8px;font-size:13px;border-bottom:1px solid var(--line)}
+.sheet-r{display:grid;grid-template-columns:1fr auto auto;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);align-items:center;font-size:14px}
+.sheet-r:last-child{border-bottom:0}
+.sheet-link{width:100%;background:none;border:0;border-bottom:1px solid var(--line);text-align:left;cursor:pointer;font:inherit;color:inherit}
+.sheet-link:hover{background:var(--mist)}
+.req-card{text-align:left;font:inherit;color:inherit;cursor:pointer;gap:10px}
+.req-card:hover{border-color:var(--g2)}
+.chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.chips .btn{flex:none}
+.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.checklist li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.checklist li:last-child{border-bottom:0}
+.checklist .grow{flex:1;min-width:160px}
+.tick{width:22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;flex:none;font-size:14px;font-weight:800;color:var(--white)}
+.tick.on{background:var(--g2);border-color:var(--g2)}
+.corr{border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px}
+.bell{position:relative;background:none;border:1px solid var(--line);border-radius:8px;width:38px;height:38px;display:grid;place-items:center;cursor:pointer;color:var(--slate)}
+.bell-n{position:absolute;top:-6px;right:-6px;background:var(--err);color:var(--white);font-size:11px;font-weight:700;border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px}
+.notif .dot{width:10px;height:10px;border-radius:99px;background:var(--line);flex:none}
+.notif .dot.ok{background:var(--g2)}.notif .dot.warn{background:var(--warn)}.notif .dot.err{background:var(--err)}
+.notif.unread{background:#f7fbf8}.notif.unread b::after{content:' •';color:var(--g2)}
+.offer{background:var(--tint);border-radius:var(--r);padding:12px 16px;display:flex;flex-direction:column;gap:2px}
+.qbar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.qbar i{height:6px;border-radius:6px;background:var(--line)}
+.qbar i.on{background:var(--g2)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;counter-reset:s}
+.step{border-top:2px solid var(--g1);padding-top:18px}
+.step .n{font-family:var(--display);font-weight:800;font-size:15px;color:var(--g1)}
+.step h3{font-size:20px;margin:6px 0 8px}
+.status-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.status-strip>div{padding:18px;border-right:1px solid var(--line);background:var(--white)}
+.status-strip>div:last-child{border-right:0}
+
+/* Pied de page */
+.foot{background:var(--ink);color:#cfd8d2;padding-block:44px 28px}
+.foot .logo .w .b{color:#FFFFFF}
+.foot .logo .t{color:#b9c3bd}
+.foot-g{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+.foot h4{color:var(--white);font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.foot button{display:block;background:none;border:0;color:#cfd8d2;padding:3px 0;cursor:pointer;text-align:left}
+.foot button:hover{color:var(--white)}
+.foot .logo{display:inline-flex}
+
+/* Formulaires */
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:14px;min-width:0}
+label.f .h{font-weight:400;color:var(--stone);font-size:13px}
+.inp{width:100%;border:1px solid #c9d2cc;border-radius:8px;padding:11px 12px;background:var(--white);min-height:44px}
+.inp:focus{border-color:var(--g2);outline:2px solid var(--tint)}
+.inp.bad{border-color:var(--err)}
+textarea.inp{min-height:120px;resize:vertical}
+.err-t{color:var(--err);font-size:13px;font-weight:500}
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--slate);cursor:pointer}
+.chk input{width:18px;height:18px;margin-top:2px;accent-color:var(--g2);flex:none}
+.opt{border:1.5px solid var(--line);border-radius:var(--r);padding:18px;cursor:pointer;background:var(--white);text-align:left;display:flex;flex-direction:column;gap:8px;min-width:0}
+.opt:hover{border-color:var(--g2)}
+.opt.on{border-color:var(--g1);background:var(--tint)}
+.drop{border:1.5px dashed #b9c4bd;border-radius:var(--r);padding:28px;text-align:center;background:var(--mist);display:flex;flex-direction:column;gap:8px;align-items:center}
+.files{display:flex;flex-direction:column;gap:8px}
+.file{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;min-width:0}
+.file .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Assistant de demande */
+.wiz{max-width:780px;margin:0 auto;padding-block:40px 64px;padding-inline:28px}
+.prog{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:18px 0 30px}
+.prog div{display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--stone);font-weight:600}
+.prog div::before{content:"";height:4px;border-radius:4px;background:var(--line)}
+.prog div.done::before,.prog div.cur::before{background:var(--g2)}
+.prog div.cur{color:var(--ink)}
+.wiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.recap{display:grid;grid-template-columns:180px 1fr auto;gap:10px 18px;align-items:start}
+.recap>div{padding-block:12px;border-bottom:1px solid var(--line);min-width:0}
+.recap .k{color:var(--stone);font-size:14px}
+.recap.two{grid-template-columns:180px minmax(0,1fr)}
+@container app (max-width: 760px){.recap.two{grid-template-columns:minmax(0,1fr)}}
+
+/* Comparaison */
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table.cmp{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+table.cmp th,table.cmp td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.cmp thead th{background:var(--mist);vertical-align:bottom}
+table.cmp tbody th{color:var(--stone);font-weight:500;width:170px;background:var(--white)}
+table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:0}
+.amt{font-family:var(--display);font-weight:700;font-size:20px}
+.cmp-cards{display:none}
+
+/* Tableaux de données */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table.t{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.t th{background:var(--mist);text-align:left;font-weight:600;color:var(--slate);padding:10px 14px;font-size:13px}
+table.t td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:middle}
+table.t tr.clk{cursor:pointer}
+table.t tr.clk:hover td{background:#fafcfb}
+
+/* Espaces connectés */
+.sp{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:720px}
+.side{border-right:1px solid var(--line);padding:20px 12px;background:var(--white);display:flex;flex-direction:column;gap:2px}
+.side .who{padding:6px 10px 16px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.side button.m{display:flex;justify-content:space-between;align-items:center;background:none;border:0;border-radius:8px;padding:10px 12px;cursor:pointer;color:var(--slate);text-align:left;font-weight:500;white-space:nowrap}
+.side button.m:hover{background:var(--mist)}
+.side button.m.on{background:var(--tint);color:var(--g1);font-weight:700}
+.side .cnt{font-size:12px;background:var(--g1);color:var(--white);border-radius:99px;padding:0 7px}
+.main{padding:28px 32px 48px;background:#FBFCFB;min-width:0}
+.main h1{font-size:26px}
+.ph{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:22px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kpi{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.kpi .v{font-family:var(--display);font-size:24px;font-weight:700;margin-top:4px}
+.kpi .l{font-size:13px;color:var(--stone)}
+.list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);background:var(--white);overflow:hidden}
+.li{display:flex;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.li:last-child{border-bottom:0}
+.li .grow{flex:1;min-width:200px}
+.li.clk{cursor:pointer}.li.clk:hover{background:#fafcfb}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:20px;overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;cursor:pointer;color:var(--stone);font-weight:600;white-space:nowrap}
+.tabs button.on{color:var(--g1);border-color:var(--g1)}
+
+/* Commande */
+.track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.track div{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:600;color:var(--stone)}
+.track div::before{content:"";height:6px;border-radius:6px;background:var(--line)}
+.track div.done::before{background:var(--g2)}
+.track div.cur{color:var(--ink)}
+.track div.cur::before{background:var(--g1)}
+.track.alert div.cur::before{background:var(--err)}
+.ord-g{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}
+.msgs{display:flex;flex-direction:column;gap:10px;max-height:380px;overflow:auto;padding:4px}
+.msg{max-width:78%;padding:10px 13px;border-radius:12px;background:var(--mist);font-size:14px}
+.msg.me{align-self:flex-end;background:var(--tint)}
+.msg .meta{font-size:11.5px;color:var(--stone);margin-top:4px}
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.hist li{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.hist li:last-child{border-bottom:0}
+.fee{display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-size:14.5px}
+.fee.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-weight:700;font-size:16px}
+.stars{display:flex;gap:4px}
+.stars button{background:none;border:1px solid var(--line);border-radius:6px;width:40px;height:40px;cursor:pointer;font-weight:700;color:var(--stone)}
+.stars button.on{background:var(--g1);color:var(--white);border-color:var(--g1)}
+
+/* Portfolio */
+.pf{aspect-ratio:4/3;max-width:100%;border-radius:8px;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/22px 22px,
+  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/22px 22px,var(--mist);
+  display:flex;align-items:flex-end;padding:10px;font-size:12.5px;color:var(--slate);font-weight:600}
+.pf-img{margin:0;border-radius:8px;overflow:hidden;background:var(--mist);min-width:0}
+.pf-img img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;max-width:100%}
+.pf-img figcaption{font-size:12.5px;color:var(--slate);font-weight:600;padding:8px 10px}
+.pf-img.pf-cover img{aspect-ratio:16/9}
+.pf-img.pf-cover figcaption{display:none}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--g1);color:var(--white);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:18px;flex:none}
+.avatar.s{width:36px;height:36px;font-size:13px}
+
+/* Barres stats */
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:170px 1fr 40px;gap:12px;align-items:center;font-size:14px}
+.bar .tr{height:10px;background:var(--mist);border-radius:6px;overflow:hidden}
+.bar .tr i{display:block;height:100%;background:var(--g2);border-radius:6px}
+
+/* Notification */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--white);padding:12px 18px;border-radius:10px;font-size:14px;z-index:99;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.empty{text-align:center;padding:40px 20px;color:var(--stone);border:1px dashed var(--line);border-radius:var(--r)}
+.legal{max-width:760px}
+.legal h2{font-size:20px;margin:26px 0 8px}
+.legal p{color:var(--slate);margin-bottom:8px}
+
+/* ===== Responsive piloté par la largeur du cadre ===== */
+@container app (max-width: 980px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ord-g{grid-template-columns:minmax(0,1fr)}
+  .foot-g{grid-template-columns:1fr 1fr}
+}
+@container app (max-width: 760px){
+  .wrap,.wiz{padding-inline:16px}
+  .hdr-in{padding:12px 16px;gap:12px}
+  .nav,.hdr .hide-m{display:none}
+  .burger{display:grid;place-items:center}
+  .mnav.open{display:flex;flex-direction:column;padding:8px 16px 16px;gap:4px;border-top:1px solid var(--line)}
+  .mnav button.l{background:none;border:0;text-align:left;padding:12px 4px;font-weight:600;border-bottom:1px solid var(--line);cursor:pointer}
+  .logo .w{font-size:21px}
+  .hero{padding-block:40px}
+  .hero-g,.g2,.g3,.steps{grid-template-columns:minmax(0,1fr)}
+  .hero h1{font-size:33px}
+  .lead{font-size:16.5px}
+  .sec{padding-block:44px}
+  .status-strip{grid-template-columns:minmax(0,1fr)}
+  .status-strip>div{border-right:0;border-bottom:1px solid var(--line)}
+  .g4{grid-template-columns:minmax(0,1fr)}
+  .foot-g{grid-template-columns:1fr}
+  .row.cta .btn{width:100%}
+  .prog div span{display:none}
+  .wiz-nav .btn{flex:1}
+  .recap{grid-template-columns:minmax(0,1fr) auto}
+  .recap .k{grid-column:1/-1;padding-bottom:0;border-bottom:0}
+  .cmp-wrap{display:none}
+  .cmp-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cmp-head{grid-column:1/-1;display:flex;flex-direction:column}
+  .qtile{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .qtile .qn{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .qtile .qr{display:block;font-size:11.5px;color:var(--stone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .qtile .qa{font-family:var(--display);font-weight:700;font-size:18px;margin-top:4px}
+  .qtile .qd{font-size:12px;color:var(--slate)}
+  .qtile .qv{font-size:11.5px;font-weight:700;color:var(--g1);background:var(--tint);border-radius:99px;padding:2px 8px;align-self:flex-start}
+  .qtile .qv.etu{color:var(--slate);background:var(--mist)}
+  .qtile .btn{margin-top:4px;width:100%}
+  .sp{grid-template-columns:minmax(0,1fr)}
+  .side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:10px 12px;gap:4px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);z-index:5;box-shadow:0 -12px 0 var(--white)}
+  .side .who,.side .sp-only{display:none}
+  .main{padding:20px 16px 40px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .track{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .track div span{display:none}
+  .hist li{grid-template-columns:1fr}
+  .bar{grid-template-columns:110px 1fr 32px}
+  .msg{max-width:90%}
+  .tbl-cards table.t{display:none}
+  .tbl-cards .mcards{display:flex}
+}
+.mcards{display:none;flex-direction:column;gap:10px}
+@media (prefers-reduced-motion:no-preference){.btn,.opt,.side button.m{transition:background .15s,border-color .15s}}
+.plan-badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:5px;vertical-align:middle;white-space:nowrap}
+.plan-badge.pro{background:var(--g1);color:#fff}
+.plan-badge.premium{background:linear-gradient(135deg,#d4a72c,#b8860b);color:#fff}
+.ring-pro{box-shadow:0 0 0 2px var(--white),0 0 0 4px var(--g1)}
+.ring-premium{box-shadow:0 0 0 2px var(--white),0 0 0 4px #c9971f}
+.plan-card.plan-pro{border-top:3px solid var(--g1)}
+.plan-card.plan-premium{border-top:3px solid #c9971f;background:linear-gradient(180deg,#fffaf0,var(--white) 90px)}
+.quota{height:8px;background:var(--mist);border-radius:99px;overflow:hidden}.quota i{display:block;height:100%;background:var(--g1)}
+.places{display:flex;gap:6px}.places i{flex:1;height:10px;border-radius:99px;background:var(--mist);border:1px solid var(--line)}.places i.on{background:var(--g1);border-color:var(--g1)}
+.inbox{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:18px;align-items:start}
+.li.sel{background:var(--tint)}
+.chat .msgs{max-height:380px;overflow-y:auto}
+@media(max-width:820px){.inbox{grid-template-columns:1fr}}
+</style>
+
+<div class="demo" role="region" aria-label="Barre de démonstration">
+  <b>BUILDSEN · Maquette</b><span class="tag">Données fictives · aucun service réel connecté</span>
+  <div class="grp"><span>Affichage</span><button id="dv-d" data-dev="desktop">Ordinateur</button><button id="dv-m" data-dev="mobile">Mobile</button></div>
+  <div class="grp"><span>Espace</span><button data-space="home">Public</button><button data-space="c-dash">Particulier</button><button data-space="espace-pro">Professionnel</button><button data-space="a">Administrateur</button></div>
+  <div class="grp"><span>Écran</span><select id="jump" aria-label="Aller à un écran"></select></div>
+</div>
+<div class="stage"><div class="frame" id="frame"><div id="app"></div></div></div>
+<div id="toast-host"></div>
+
+<script>
+
+/* ============ Données de démonstration (fictives) ============ */
+// Modèle retenu (sans architectes) :
+// le particulier publie gratuitement sa demande (budget obligatoire) ; jusqu'à 5 professionnels vérifiés
+// ouvrent une conversation avec lui (1 conversation = 1 contact décompté de leur formule) ; ils peuvent
+// ensuite continuer sur WhatsApp. Le prix, le contrat et le paiement se règlent entre eux.
+// Formules des pros : Gratuit (3 contacts/mois, demandes visibles après 48 h, gros budgets masqués),
+// Pro 5 000 FCFA/mois (15 contacts), Premium 15 000 FCFA/mois (illimité + mis en avant).
+// Les prix des formules ne s'affichent que si l'adresse contient ?tarifs=1 (sinon masqués).
+const PRICING=/[?&]tarifs=1/.test(location.search);
+const MAX_PROS=5, BIG_BUDGET=1000000, FREE_DELAY_H=48;
+const PLANS={
+ FREE:{name:'Gratuit',price:0,contacts:3,perks:['3 contacts par mois','Nouvelles demandes visibles après 48 h','Demandes à gros budget non visibles']},
+ PRO:{name:'Pro',price:5000,contacts:15,perks:['15 contacts par mois','Nouvelles demandes tout de suite, avec alerte','Demandes à gros budget visibles']},
+ PREMIUM:{name:'Premium',price:15000,contacts:null,perks:['Contacts illimités','Profil mis en avant dans les résultats','Nouvelles demandes tout de suite, avec alerte']}
+};
+const LAUNCH={first:50,months:3};
+const PHASES=['Pas encore de terrain','Terrain acheté, travaux non commencés','Travaux déjà commencés','Bâtiment existant à modifier'];
+const NIVEAUX=['Plain-pied','R+1','R+2','R+3','R+4 ou plus'];
+const TERRAIN=['Titre foncier','Bail','Délibération','Je ne sais pas'];
+const newDraft=()=>({cat:null,sub:'',type:'',desc:'',commune:'',quartier:'',dims:'',phase:'',surface:'',niveaux:'',pieces:'',terrain:'',delai:'',docs:[],budget:'',files:[],target:null,openAll:false});
+const CATS=[
+ {id:'plans',name:'Plans et conception',short:'Plans de maisons, modification, réaménagement, 2D, 3D, aménagement intérieur.',items:['Conception de plans de maisons','Modification de plans existants','Réaménagement de plans','Mise au propre de plans papier ou numériques','Plans 2D','Modélisation 3D',"Plans d'aménagement intérieur"]},
+ {id:'metres',name:'Devis et métrés',short:'Métrés, quantitatifs, DQE, bordereaux de prix et estimation du coût.',items:['Métré des ouvrages','Quantitatifs de matériaux','Devis quantitatifs et estimatifs (DQE)','Bordereaux de prix','Estimation du coût de construction','Décomposition des coûts par lot','Préparation de documents de quantification']},
+ {id:'dao',name:'DAO et dessin technique',short:'Dessin AutoCAD, reproduction numérique et mise en page de plans.',items:['Dessin sur AutoCAD','Reproduction numérique de plans','Mise en page de documents techniques','Préparation de plans numériques','Modélisation technique']},
+ {id:'etudes',name:'Études techniques',short:'Structure, plans de béton armé, notes de calcul, coffrage et ferraillage.',regulated:true,items:['Études de structure','Plans de béton armé','Notes de calcul','Plans de coffrage','Plans de ferraillage']}
+];
+const EXCLUS=['Suivi de chantier','Expertise sur site','Contrôle de travaux',"Maîtrise d'œuvre d'exécution",'Diagnostic de pathologies du bâtiment','Exécution des travaux','Signature de dossiers de permis de construire'];
+const STATUTS={
+ ing:{name:'Ingénieur en génie civil',docs:["Pièce d'identité",'Diplôme',"Attestation d'expérience (facultatif)"],auth:'Tout type de demande, y compris les études de structure'},
+ tech:{name:'Technicien supérieur',docs:["Pièce d'identité",'Diplôme ou titre professionnel'],auth:'Plans, métrés et DAO de projets de moins de 5 étages'},
+ be:{name:"Entreprise",docs:['NINEA','RCCM',"Pièce d'identité du gérant","Diplôme d'ingénieur du responsable technique"],auth:"Tout type de demande, y compris les études de structure, sous la responsabilité d'un ingénieur"}
+};
+const PF={
+ p6:[['immeuble-r3-noir-blanc','Immeuble R+3, étude de structure complète'],['immeuble-r3-lumiere',"Immeuble R+3, plans d'exécution"],['villa-classique','Villa R+2, DQE par lot']],
+ p1:[['villa-claustra','Villa R+1, façade à claustras'],['villa-classique','Villa R+2 de style classique'],['immeuble-r3-lumiere','Immeuble R+3']],
+ p2:[['immeuble-r3-noir-blanc','Immeuble R+3, études de structure'],['immeuble-r3-bois','Immeuble R+3, métrés et DQE'],['villa-moderne-portail','Villa R+1, coffrage et ferraillage']],
+ p3:[['villa-terracotta','Villa R+1, plans sur AutoCAD'],['villa-moderne-portail','Villa R+1, mise au propre'],['villa-claustra','Villa R+1, plans de façade']],
+ p5:[['villa-moderne-portail','Villa R+1, conception et 3D'],['villa-classique','Villa R+2, plans détaillés'],['immeuble-r3-lumiere','Immeuble R+3, façades']]
+};
+const pfImg=([f,t],cls='')=>`<figure class="pf-img ${cls}"><img src="images/portfolio/${f}.webp" alt="${esc(t)}" loading="lazy"><figcaption>${esc(t)}</figcaption></figure>`;
+// Numéros fictifs ; plan = formule d'abonnement (signature visuelle Pro verte, Premium dorée)
+const PROS=[
+ {id:'p1',name:'Aïssatou Sow',ini:'AS',f:true,statut:'ing',plan:'PREMIUM',city:'Dakar, Mermoz',cats:['plans','dao'],soft:['AutoCAD','Revit','SketchUp'],exp:'9 ans',tel:'77 000 00 01',av:[4.8,12],bio:"Ingénieure en génie civil. Conception de villas et de petits immeubles d'habitation à Dakar."},
+ {id:'p2',name:'Moussa Diop',ini:'MD',statut:'ing',plan:'PRO',city:'Dakar, Sacré-Cœur',cats:['etudes','metres','plans'],soft:['Robot Structural','AutoCAD','Excel'],exp:'7 ans',tel:'77 000 00 02',av:[4.9,9],bio:'Ingénieur structure. Notes de calcul, coffrage, ferraillage et métrés de bâtiments R+1 à R+4.'},
+ {id:'p3',name:'Fatou Ba',ini:'FB',f:true,statut:'tech',plan:'FREE',city:'Pikine',cats:['dao','metres'],soft:['AutoCAD','Covadis'],exp:'5 ans',tel:'77 000 00 03',av:[4.5,6],bio:'Technicienne supérieure en dessin bâtiment. Mise au propre et reproduction de plans.'},
+ {id:'p5',name:'Mariama Faye',ini:'MF',f:true,statut:'tech',plan:'PRO',city:'Dakar, Ouakam',cats:['plans','dao'],soft:['Revit','AutoCAD','Lumion'],exp:'6 ans',tel:'77 000 00 05',av:[4.7,7],bio:'Technicienne supérieure en bâtiment. Plans de villas contemporaines et modélisation 3D.'},
+ {id:'p6',name:'Sahel Études & Structures',ini:'SE',statut:'be',plan:'PRO',city:'Dakar, Point E',cats:['etudes','metres','plans','dao'],soft:['Robot Structural','Revit','AutoCAD'],exp:"11 ans d'activité",tel:'33 000 00 06',av:[4.9,21],co:{team:6,resp:"ingénieur en génie civil, 15 ans d'expérience"},bio:"Entreprise d'ingénierie de 6 personnes. Études de structure, plans d'exécution et DQE pour villas et immeubles jusqu'à R+6."}
+];
+const COMMUNES=['Dakar-Plateau','Médina','Fann-Point E-Amitié','Mermoz-Sacré-Cœur','Ouakam','Ngor','Yoff','Parcelles Assainies','Grand Yoff','HLM','Pikine','Guédiawaye','Keur Massar','Rufisque','Diamniadio','Autre commune'];
+const CLIENT_TEL='77 000 00 00';
+const ME='p2'; // le professionnel connecté dans la démonstration (Moussa Diop, formule Pro)
+
+// Conversations : une par professionnel et par demande (5 au maximum par demande).
+// shared : le client a accepté de partager son WhatsApp avec ce professionnel.
+const mkConv=(id,pro,req,msgs,shared=false)=>({id,pro,req,msgs,shared,reported:false,rated:0});
+const S={
+ view:'home',arg:null,device:'desktop',menu:false,
+ wiz:1,errs:{},draft:newDraft(),
+ dFilter:{q:'',cat:'all',commune:'',type:''},
+ user:null,next:null,
+ sms:{step:0,tel:'',code:''},
+ requests:[{ref:'BS-2026-04172',cat:'plans',sub:'Conception de plans de maisons',type:'Maison individuelle',title:'Plans villa R+1 — 4 chambres',commune:'Keur Massar',budget:'600000',delai:'Sous 1 mois',terrain:'Titre foncier',pieces:'6',status:'Publiée',demo:true,desc:"Terrain de 10 m × 20 m. Je souhaite une villa R+1 avec 4 chambres dont une suite parentale, un salon, une cuisine fermée et une terrasse au premier étage."}],
+ convs:[
+  mkConv('c1','p1','BS-2026-04172',[{me:false,t:"Bonjour Awa, j'ai vu votre projet de villa R+1 à Keur Massar. Je conçois ce type de villa depuis 9 ans : plans des deux niveaux, façades et une 3D. Votre budget de 600 000 FCFA me convient. Quand puis-je vous appeler ?",w:'il y a 2 h'}],false),
+  mkConv('c2','p2','BS-2026-04172',[{me:false,t:"Bonjour, je peux réaliser les plans cotés de votre villa avec une première estimation des quantités de gros œuvre. L'entrée est-elle bien côté nord ?",w:'il y a 5 h'},{me:true,t:"Bonjour, oui l'entrée est côté nord, sur une voie de 8 m.",w:'il y a 4 h'},{me:false,t:"Parfait. Je peux vous proposer 550 000 FCFA, livrés en 18 jours. On continue sur WhatsApp ?",w:'il y a 3 h'}],true),
+  mkConv('c3','p3','BS-2026-04172',[{me:false,t:"Bonjour, je peux mettre au propre vos plans sur AutoCAD à partir de votre croquis, en 15 jours.",w:'hier'}],false),
+  mkConv('c4','p6','BS-2026-04172',[{me:false,t:"Bonjour Madame Diallo, notre entreprise peut prendre en charge tout votre projet : plans, étude de structure et métrés, sous la responsabilité de notre ingénieur. Délai : 3 semaines.",w:'hier'}],false)
+ ],
+ openConv:null,compose:'',rating:{},
+ plan:{key:'PRO',used:4,until:'17/01/2027',launch:true},
+ verif:{statut:null,step:1,files:{},submitted:false},
+ adminAuthed:false,adminRole:'super',adminTab:'overview',dossier:null,
+ dossiers:[
+  {id:'D-0311',name:'Ousmane Fall',statut:'ing',date:'08/10/2026',state:'pending',docs:{"Pièce d'identité":'reçu','Diplôme':'reçu'}},
+  {id:'D-0312',name:'Khady Ndiaye',statut:'tech',date:'09/10/2026',state:'pending',docs:{"Pièce d'identité":'reçu','Diplôme ou titre professionnel':'manquant'}},
+  {id:'D-0315',name:'Sahel Études & Structures',statut:'be',date:'12/10/2026',state:'pending',docs:{'NINEA':'reçu','RCCM':'reçu',"Pièce d'identité du gérant":'reçu',"Diplôme d'ingénieur du responsable technique":'reçu'}},
+  {id:'D-0298',name:'Fatou Ba',statut:'tech',date:'21/09/2026',state:'verified',docs:{"Pièce d'identité":'accepté','Diplôme ou titre professionnel':'accepté'}}
+ ],
+ users:[
+  {n:'Awa Diallo',r:'Particulier',d:'02/10/2026',s:'Actif',plan:null},{n:'Moussa Diop',r:'Ingénieur',d:'14/09/2026',s:'Actif',plan:'PRO'},
+  {n:'Aïssatou Sow',r:'Ingénieure',d:'11/09/2026',s:'Actif',plan:'PREMIUM'},{n:'Sahel Études & Structures',r:"Entreprise",d:'12/10/2026',s:'Actif',plan:'PRO'},{n:'Compte « plans-rapides »',r:'Technicien',d:'05/10/2026',s:'Signalé',plan:'FREE'}
+ ],
+ adminReqs:[
+  {ref:'BS-2026-04172',t:'Plans villa R+1',c:'Plans et conception',s:'Publiée'},
+  {ref:'BS-2026-04181',t:'DQE immeuble R+3',c:'Devis et métrés',s:'Publiée'},
+  {ref:'BS-2026-04190',t:'Contactez-moi sur WhatsApp au …',c:'DAO et dessin technique',s:'À modérer'}
+ ],
+ reviews:[
+  {who:'Client de Moussa Diop',txt:'Très réactif, plans clairs et livrés à temps.',s:'Publié',n:5},
+  {who:'Client de Fatou Ba',txt:'Avis contenant un numéro de téléphone et des propos injurieux.',s:'Signalé',n:1}
+ ],
+ reports:[
+  {id:'SIG-021',who:'Awa D. (particulier)',target:'Conversation avec « plans-rapides »',r:"Demande le paiement de la totalité du prix d'avance par transfert, puis ne répond plus.",s:'À examiner'},
+  {id:'SIG-019',who:'Ibrahima D. (particulier)',target:'Conversation avec Fatou B.',r:'Messages insistants après la clôture de la demande.',s:'Traité'}
+ ],
+ audit:[
+  {t:'12/10/2026 09:14',a:'A. Sarr (Vérificateur)',x:'Consultation du diplôme — dossier D-0298'},
+  {t:'12/10/2026 09:20',a:'A. Sarr (Vérificateur)',x:'Dossier D-0298 accepté'},
+  {t:'11/10/2026 17:02',a:'M. Gaye (Super-admin)',x:'Formule Premium attribuée à Aïssatou Sow (3 mois)'}
+ ]
+};
+
+/* ============ Outils ============ */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fcfa=n=>new Intl.NumberFormat('fr-FR').format(Math.round(n))+' FCFA';
+const pro=id=>PROS.find(p=>p.id===id);
+const cat=id=>CATS.find(c=>c.id===id);
+const first=p=>p.name.split(' ')[0];
+const stat=p=>p.f?{ing:'Ingénieure en génie civil',tech:'Technicienne supérieure'}[p.statut]:STATUTS[p.statut].name;
+const now=()=>{const d=new Date(2026,9,12,new Date().getHours(),new Date().getMinutes());return d.toLocaleDateString('fr-FR')+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})};
+const F=()=>'<span class="fict">Exemple</span>';
+const pill=(t,c='')=>`<span class="pill ${c}">${esc(t)}</span>`;
+function toast(m){const h=$('#toast-host');h.innerHTML=`<div class="toast" role="status">${esc(m)}</div>`;clearTimeout(toast.t);toast.t=setTimeout(()=>h.innerHTML='',3600)}
+function audit(x){const r={super:'Super-admin',verif:'Vérificateur',support:'Support',moder:'Modérateur'}[S.adminRole];S.audit.unshift({t:now(),a:'Vous ('+r+')',x})}
+const verifBadge=p=>p&&p.statut==='be'?pill('Entreprise vérifiée','ok'):pill('Profil vérifié','ok');
+const avis=p=>p.av?`<span class="small"><b class="num">${p.av[0].toLocaleString('fr-FR')}/5</b> <span class="muted">· ${p.av[1]} avis</span></span>`:'<span class="small muted">Pas encore d\'avis</span>';
+// Signature visuelle des formules : badge PRO vert, badge PREMIUM doré, anneau autour de l'avatar
+const planBadge=k=>k==='PREMIUM'?'<span class="plan-badge premium">♛ PREMIUM</span>':k==='PRO'?'<span class="plan-badge pro">PRO</span>':'';
+const av=(p,cls='s')=>`<div class="avatar ${cls} ring-${(p.plan||'FREE').toLowerCase()}">${p.ini}</div>`;
+const budgetNum=b=>+String(b||'').replace(/\D/g,'')||0;
+const isBig=b=>budgetNum(b)>BIG_BUDGET;
+const quotaLeft=()=>PLANS[S.plan.key].contacts===null?Infinity:Math.max(0,PLANS[S.plan.key].contacts-S.plan.used);
+const I={
+ plans:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 11h8V3M11 15v6M15 11h6M15 11v4"/></svg>',
+ metres:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="8" rx="1"/><path d="M6.5 8v3M10.5 8v4.5M14.5 8v3M18.5 8v4.5"/></svg>',
+ dao:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 6l-6 15M12 6l6 15M8 15h8"/><circle cx="12" cy="6" r="1.4"/></svg>',
+ etudes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M3 19h18M12 5v14M7 5l5 6 5-6M7 19l5-6 5 6"/></svg>',
+ shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>',
+ lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>',
+ chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+ star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>',
+ wa:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1112 20a8 8 0 01-4-1.1z"/></svg>',
+ file:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6.5A1.5 1.5 0 005 4.5v15A1.5 1.5 0 006.5 21h11a1.5 1.5 0 001.5-1.5V8z"/><path d="M14 3v5h5"/></svg>',
+ menu:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
+};
+const logo=(go='home')=>`<button class="logo" data-go="${go}" aria-label="BUILDSEN, accueil"><span class="w"><span class="b">BUILD</span><span class="s">SEN</span></span><span class="t">Construire avec confiance.</span></button>`;
+const RELATION="BUILDSEN vous met en relation. Le prix, le contrat et le paiement se décident directement entre vous et le professionnel.";
+
+/* ============ Gabarits publics ============ */
+function header(){
+  const L=[['prestations','Prestations'],['demandes','Demandes'],['pros','Professionnels'],['fonctionnement','Fonctionnement'],['espace-pro','Espace pro']];
+  return `<header class="hdr"><div class="hdr-in">${logo()}
+   <nav class="nav" aria-label="Navigation principale">${L.map(([v,t])=>`<button data-go="${v}" class="${S.view===v?'on':''}">${t}</button>`).join('')}</nav>
+   <div class="hdr-act">${S.user?`<button class="btn g hide-m" data-go="${S.user==='pro'?'p-home':'c-dash'}">Mon espace</button>`:`<button class="btn g hide-m" data-go="login">Connexion</button>`}<button class="btn p hide-m" data-go="new-request">Déposer une demande</button></div>
+   <button class="burger" data-act="menu" aria-label="Ouvrir le menu" aria-expanded="${S.menu}">${I.menu}</button></div>
+   <div class="mnav ${S.menu?'open':''}">${L.map(([v,t])=>`<button class="l" data-go="${v}">${t}</button>`).join('')}
+    ${S.user?`<button class="l" data-go="${S.user==='pro'?'p-home':'c-dash'}">Mon espace</button>`:`<button class="l" data-go="login">Connexion</button>`}<button class="btn p" data-go="new-request" style="margin-top:8px">Déposer une demande</button></div></header>`;
+}
+function footer(){
+  return `<footer class="foot"><div class="wrap"><div class="foot-g">
+   <div class="stack">${logo()}<p class="small" style="max-width:34ch">Plateforme de mise en relation pour les plans, métrés et études en bâtiment. Lancement pilote à Dakar.</p></div>
+   <div><h4>Prestations</h4>${CATS.map(c=>`<button data-go="prestations">${c.name}</button>`).join('')}</div>
+   <div><h4>Plateforme</h4><button data-go="demandes">Demandes en cours</button><button data-go="fonctionnement">Fonctionnement</button><button data-go="pros">Professionnels</button><button data-go="espace-pro">Espace professionnels</button><button data-go="help">Centre d'aide</button><button data-go="contact">Contact</button></div>
+   <div><h4>Informations</h4><button data-go="cgu">Conditions générales</button><button data-go="privacy">Confidentialité</button><button data-go="mentions">Mentions légales</button></div>
+  </div><p class="small" style="margin-top:28px;color:#8f9a93">© 2026 BUILDSEN · Dakar, Sénégal</p></div></footer>`;
+}
+const pub=b=>header()+b+footer();
+const quotePill=r=>r.q>=MAX_PROS?pill('Complète','warn'):r.q?pill(r.q+'/'+MAX_PROS+' pros','ok'):pill('Nouvelle');
+
+function vHome(){
+  return pub(`
+  <section class="hero"><div class="wrap hero-g">
+   <div class="stack" style="gap:20px">
+    <span class="eyebrow">Lancement pilote · Dakar</span>
+    <h1>Votre projet de construction <em>commence ici.</em></h1>
+    <p class="lead">Plans, devis, métrés et études techniques : publiez votre besoin gratuitement, échangez avec jusqu'à ${MAX_PROS} professionnels vérifiés, puis continuez sur WhatsApp avec celui qui vous convient.</p>
+    <div class="row cta" style="margin-top:6px"><button class="btn p" data-go="new-request">Déposer une demande</button><button class="btn o" data-go="prestations">Découvrir nos prestations</button></div>
+    <p class="small muted">Gratuit pour les particuliers.</p>
+   </div>
+   <div class="sheet" aria-label="Exemples de demandes récentes">
+    <div class="sheet-h"><span><b>Demandes récentes</b></span>${F()}</div>
+    ${HOME_REQS.slice(0,5).map((r,idx)=>`<button class="sheet-r sheet-link" data-go="demande" data-arg="${idx}" style="grid-template-columns:auto 1fr auto" aria-label="Voir la demande : ${esc(r.t)}"><div class="avatar s">${r.i}</div><span style="min-width:0"><b>${esc(r.t)}</b><br><span class="small muted">${r.n} · ${r.l} · <span style="white-space:nowrap">${r.w}</span></span><br><span class="small" style="color:var(--g1);font-weight:600">${cat(r.c).name}</span></span>${quotePill(r)}</button>`).join('')}
+    <div class="sheet-r" style="grid-template-columns:1fr auto"><span class="small muted">Professionnel ? Touchez une demande pour la consulter.</span><button class="link small" data-go="demandes">Toutes les demandes</button></div>
+   </div>
+  </div></section>
+  <section class="sec alt"><div class="wrap stack" style="gap:28px">
+   <div class="stack"><span class="eyebrow">Prestations</span><h2 style="font-size:30px">Quatre familles de prestations techniques</h2></div>
+   <div class="g4">${CATS.map(c=>`<div class="card stack"><div class="ic">${I[c.id]}</div><h3>${c.name}</h3><p class="muted small">${c.short}</p>${c.regulated?`<p class="small" style="color:var(--g1);font-weight:600">Réservé aux ingénieurs et entreprises vérifiés</p>`:''}<button class="link" data-go="prestations" style="margin-top:auto;align-self:flex-start">Voir le détail</button></div>`).join('')}</div>
+  </div></section>
+  <section class="sec"><div class="wrap stack" style="gap:28px">
+   <div class="stack"><span class="eyebrow">Fonctionnement</span><h2 style="font-size:30px">Votre projet, des pros vérifiés qui vous écrivent, un échange direct</h2></div>
+   <div class="steps">
+    <div class="step"><span class="n">1</span><h3>Décrivez votre projet</h3><p class="muted">Type de prestation, terrain, nombre de pièces, budget et délai. Votre numéro est vérifié par SMS et notre équipe relit chaque demande avant de la publier.</p></div>
+    <div class="step"><span class="n">2</span><h3>Jusqu'à ${MAX_PROS} pros vous écrivent</h3><p class="muted">Les professionnels vérifiés de votre zone sont alertés. Ils vous écrivent dans la messagerie BUILDSEN : vous lisez tranquillement et répondez à qui vous voulez.</p></div>
+    <div class="step"><span class="n">3</span><h3>Continuez sur WhatsApp</h3><p class="muted">Quand vous êtes prêt, partagez votre WhatsApp avec le professionnel choisi. Vous décidez ensemble du prix, du contrat et du paiement.</p></div>
+   </div>
+  </div></section>
+  <section class="sec alt"><div class="wrap stack" style="gap:28px">
+   <div class="stack"><span class="eyebrow">Confiance</span><h2 style="font-size:30px">Ce que BUILDSEN vérifie</h2></div>
+   <div class="g3">
+    <div class="card stack"><div class="ic">${I.shield}</div><h3>Profils vérifiés</h3><p class="muted">Identité et diplôme examinés par notre équipe. Le badge « vérifié » ne s'achète pas : il dépend uniquement des justificatifs.</p></div>
+    <div class="card stack"><div class="ic">${I.lock}</div><h3>Votre numéro protégé</h3><p class="muted">Les professionnels vous écrivent d'abord dans la messagerie. Votre numéro n'est partagé qu'avec ceux que vous choisissez.</p></div>
+    <div class="card stack"><div class="ic">${I.star}</div><h3>Avis et signalements</h3><p class="muted">Seuls les clients qui ont échangé avec un professionnel peuvent laisser un avis. Un comportement suspect se signale en un clic.</p></div>
+   </div>
+   <div class="note">${RELATION} Conseil : ne versez jamais la totalité du prix d'avance.</div>
+   <div class="status-strip">${Object.values(STATUTS).map(s=>`<div class="stack" style="gap:6px"><b>${s.name}</b><span class="small muted">${s.auth}</span></div>`).join('')}</div>
+  </div></section>
+  <section class="sec"><div class="wrap"><div class="card flat row between" style="padding:32px;gap:20px">
+   <div class="stack" style="max-width:56ch"><h2 style="font-size:24px">Vous êtes ingénieur, technicien supérieur ou entreprise ?</h2><p class="muted">Consultez les demandes de votre zone et écrivez directement aux clients. Inscription gratuite.</p></div>
+   <button class="btn d" data-go="espace-pro">Découvrir l'espace pro</button></div></div></section>`);
+}
+
+function vPrestations(){
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:30px">
+   <div class="stack"><span class="eyebrow">Prestations</span><h1 style="font-size:36px">Nos prestations</h1><p class="lead">BUILDSEN vous met en relation avec des professionnels pour les prestations intellectuelles et techniques qui précèdent la construction.</p></div>
+   <div class="g2">${CATS.map(c=>`<div class="card stack" style="gap:14px"><div class="row"><div class="ic">${I[c.id]}</div><h2 style="font-size:20px">${c.name}</h2></div>
+     <ul class="ticks">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+     ${c.regulated?`<div class="note">Ces demandes sont proposées uniquement aux ingénieurs en génie civil et aux entreprises vérifiés.</div>`:''}
+     <button class="btn o" data-act="startCat" data-arg="${c.id}" style="align-self:flex-start">Déposer une demande</button></div>`).join('')}</div>
+   <div class="note w">Permis de construire : si votre projet en nécessite un, le dossier doit être signé par un professionnel habilité. Cette signature n'est pas proposée sur BUILDSEN.</div>
+   <div class="card flat stack"><h3>Hors périmètre de BUILDSEN</h3><ul class="ticks crosses" style="columns:2;display:block">${EXCLUS.map(e=>`<li style="margin-bottom:7px">${e}</li>`).join('')}</ul></div>
+  </div></section>`);
+}
+
+function plansBlock(){
+  if(!PRICING)return `<div class="note">L'inscription et la vérification du profil sont gratuites. Les formules pour les professionnels seront présentées avant l'ouverture aux particuliers.</div>`;
+  return `<div class="g3">${Object.entries(PLANS).map(([k,p])=>`<div class="card stack plan-card plan-${k.toLowerCase()}" style="gap:8px"><div class="row between"><b style="font-size:18px">${p.name}</b>${planBadge(k)}</div><span style="font-family:var(--display);font-weight:800;font-size:22px">${p.price?fcfa(p.price)+' / mois':'Gratuit'}</span><ul class="ticks small">${p.perks.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
+   <div class="note ok small">Offre de lancement : les ${LAUNCH.first} premiers professionnels vérifiés ont <b>${LAUNCH.months} mois de formule Pro offerts</b>. Paiement par Wave ou Orange Money. Le badge « Profil vérifié » est gratuit.</div>`;
+}
+
+function vFonct(){
+  const does=['Vérifie le numéro des particuliers par SMS','Relit chaque demande avant publication','Vérifie l\'identité et les diplômes des professionnels','Alerte les professionnels de la zone','Limite chaque demande à '+MAX_PROS+' professionnels','Modère les avis, les signalements et les messages abusifs'];
+  const not=['Ne fixe pas le prix de la prestation','N\'encaisse pas le paiement de la prestation','N\'est pas partie au contrat entre le client et le professionnel','Ne tranche pas les désaccords sur une prestation'];
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:36px">
+   <div class="stack"><span class="eyebrow">Fonctionnement</span><h1 style="font-size:36px">Comment fonctionne BUILDSEN</h1><p class="lead">BUILDSEN met en relation : les professionnels vérifiés écrivent aux clients dans la messagerie, puis l'échange continue sur WhatsApp.</p></div>
+   <div class="g2">
+    <div class="card stack"><h2 style="font-size:20px">Pour les particuliers</h2><ul class="ticks"><li>Créez votre compte, votre numéro est vérifié par SMS</li><li>Déposez gratuitement votre demande : prestation, terrain, pièces, budget et délai</li><li>Jusqu'à ${MAX_PROS} professionnels vérifiés vous écrivent dans la messagerie</li><li>Consultez leurs profils, leurs avis et leurs réalisations</li><li>Partagez votre WhatsApp avec celui qui vous convient</li><li>Laissez un avis après la mission</li></ul><button class="btn p" data-go="new-request" style="align-self:flex-start">Déposer une demande</button></div>
+    <div class="card stack"><h2 style="font-size:20px">Pour les professionnels</h2><ul class="ticks"><li>Créez votre compte gratuitement et faites vérifier votre profil</li><li>Recevez une alerte pour les demandes de votre zone</li><li>Écrivez au client : chaque nouvelle conversation compte pour 1 contact de votre formule</li><li>Continuez sur WhatsApp quand le client partage son numéro</li><li>Fixez vos conditions directement avec le client : aucune commission</li></ul><button class="btn o" data-go="signup" data-arg="pro" style="align-self:flex-start">Devenir prestataire</button></div>
+   </div>
+   <div class="g2">
+    <div class="card stack"><h2 style="font-size:20px">Ce que fait BUILDSEN</h2><ul class="ticks">${does.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="card stack"><h2 style="font-size:20px">Ce que BUILDSEN ne fait pas</h2><ul class="ticks crosses">${not.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+   </div>
+   <div class="stack"><h2 style="font-size:22px">Les formules des professionnels</h2>${plansBlock()}</div>
+  </div></section>`);
+}
+
+function vPros(){
+  const f=S.arg||'all';
+  const list=PROS.filter(p=>f==='all'||p.cats.includes(f)).sort((a,b)=>(b.plan==='PREMIUM')-(a.plan==='PREMIUM'));
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:24px">
+   <div class="stack"><span class="eyebrow">Professionnels</span><h1 style="font-size:34px">Trouver un professionnel</h1><p class="muted">Profils publics ${F()}</p></div>
+   <div class="row"><button class="btn sm ${f==='all'?'d':'g'}" data-go="pros" data-arg="all">Toutes</button>${CATS.map(c=>`<button class="btn sm ${f===c.id?'d':'g'}" data-go="pros" data-arg="${c.id}">${c.name}</button>`).join('')}</div>
+   <div class="g2">${list.map(p=>`<div class="card stack plan-card plan-${p.plan.toLowerCase()}" style="gap:12px">${pfImg(PF[p.id][0],'pf-cover')}<div class="row" style="flex-wrap:nowrap">${av(p,'')}<div style="min-width:0"><h3>${esc(p.name)} ${planBadge(p.plan)}</h3><span class="small muted">${stat(p)} · ${p.city}</span></div></div>
+     <div class="row" style="gap:8px">${verifBadge(p)}${avis(p)}${p.plan==='PREMIUM'?pill('Mis en avant','warn'):''}</div><p class="muted small">${esc(p.bio)}</p>
+     <button class="link" data-go="pro-profile" data-arg="${p.id}" style="align-self:flex-start">Voir le profil</button></div>`).join('')}</div>
+  </div></section>`);
+}
+function vProProfile(){
+  const p=pro(S.arg)||PROS[0];
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:24px">
+   <button class="link" data-go="pros" style="align-self:flex-start">← Tous les professionnels</button>
+   <div class="card row plan-card plan-${p.plan.toLowerCase()}" style="gap:20px;align-items:flex-start">${av(p,'')}
+    <div class="stack" style="flex:1;min-width:220px;gap:8px"><div class="row"><h1 style="font-size:28px">${esc(p.name)}</h1>${planBadge(p.plan)}${F()}</div><span class="muted">${stat(p)} · ${p.city} · ${p.exp}</span><div class="row" style="gap:8px">${verifBadge(p)}${avis(p)}</div>
+    <p style="max-width:62ch;color:var(--slate)">${esc(p.bio)}</p></div>
+    <button class="link small" data-act="report">Signaler ce profil</button></div>
+   <div class="${p.co?'g4':'g3'}">
+    ${p.co?`<div class="card stack"><h3>Entreprise</h3><ul class="ticks small"><li>NINEA et RCCM vérifiés</li><li>Responsable technique : ${esc(p.co.resp)}</li><li>Équipe de ${p.co.team} personnes</li></ul></div>`:''}
+    <div class="card stack"><h3>Prestations</h3><div class="row" style="gap:6px">${p.cats.map(c=>pill(cat(c).name,'ok')).join('')}</div></div>
+    <div class="card stack"><h3>Logiciels</h3><p class="muted">${p.soft.join(' · ')}</p></div>
+    <div class="card stack"><h3>Avis clients</h3>${avis(p)}<p class="muted small">Laissés uniquement par des clients qui ont échangé avec ce professionnel, puis modérés.</p></div>
+   </div>
+   <div class="stack"><h2 style="font-size:20px">Portfolio</h2><div class="g3">${PF[p.id].map(x=>pfImg(x)).join('')}</div><p class="small muted">Visuels d'illustration.</p></div>
+  </div></section>`);
+}
+
+/* ============ Comptes (avec vérification du téléphone par SMS) ============ */
+function authShell(inner){return header()+`<section class="sec alt"><div class="wrap" style="max-width:520px"><div class="card stack" style="gap:18px;padding:30px">${inner}</div></div></section>`+footer()}
+function vSignup(){
+  const t=S.arg==='pro'?'pro':'client';
+  if(S.sms.step===1)return authShell(`<h1 style="font-size:24px">Vérifiez votre numéro</h1><p class="muted">Un code à 6 chiffres vient d'être envoyé par SMS au <b>${esc(S.sms.tel)}</b>.</p>
+   <form class="stack" data-form="sms" novalidate><label class="f">Code reçu par SMS<input class="inp num" id="sms-code" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code"></label><p class="err-t" id="sms-err" hidden></p><button class="btn p" type="submit">Valider</button></form>
+   <div class="row between"><button class="link small" data-act="smsResend">Renvoyer le code</button><button class="link small" data-act="smsBack">Modifier le numéro</button></div>
+   <div class="note w small">Maquette : aucun SMS n'est envoyé. Saisissez n'importe quel code à 6 chiffres.</div>`);
+  return authShell(`<h1 style="font-size:26px">Créer un compte</h1>${S.next?`<div class="note">${loginNote()}</div>`:''}
+   <div class="g2" style="gap:10px"><button class="opt ${t==='client'?'on':''}" data-go="signup" data-arg="client"><b>Particulier</b><span class="small muted">Je cherche une prestation</span></button><button class="opt ${t==='pro'?'on':''}" data-go="signup" data-arg="pro"><b>Professionnel</b><span class="small muted">Je propose mes services</span></button></div>
+   ${t==='pro'?`<div class="row" style="gap:8px"><span class="small muted">Je m'inscris :</span><button type="button" class="btn sm ${S.suKind==='be'?'g':'d'}" data-act="suKind" data-arg="ind">En indépendant</button><button type="button" class="btn sm ${S.suKind==='be'?'d':'g'}" data-act="suKind" data-arg="be">Pour une entreprise</button></div>`:''}
+   <form class="stack" data-form="signup" data-arg="${t}" novalidate>
+    ${t==='pro'&&S.suKind==='be'?`<label class="f">Nom de l'entreprise<span class="h">Tel qu'il figure sur le RCCM</span><input class="inp" id="su-co" autocomplete="organization"></label>`:''}
+    <div class="g2" style="gap:12px"><label class="f">${t==='pro'&&S.suKind==='be'?'Prénom du gérant':'Prénom'}<input class="inp" id="su-fn" autocomplete="given-name"></label><label class="f">${t==='pro'&&S.suKind==='be'?'Nom du gérant':'Nom'}<input class="inp" id="su-ln" autocomplete="family-name"></label></div>
+    <label class="f">Téléphone<span class="h">Un code de vérification vous sera envoyé par SMS</span><input class="inp" id="su-tel" inputmode="tel" placeholder="77 123 45 67" autocomplete="tel"></label>
+    <label class="f">Adresse e-mail<input class="inp" id="su-mail" type="email" autocomplete="email"></label>
+    <label class="f">Mot de passe<span class="h">12 caractères minimum</span><input class="inp" id="su-pw" type="password" autocomplete="new-password"></label>
+    <label class="chk"><input type="checkbox" id="su-cgu"> J'accepte les <button type="button" class="link" data-go="cgu">conditions générales</button> et la <button type="button" class="link" data-go="privacy">politique de confidentialité</button>.</label>
+    <p class="err-t" id="su-err" hidden></p>
+    <button class="btn p" type="submit">Recevoir mon code par SMS</button>
+    <p class="small muted">Maquette : aucun compte n'est réellement créé.</p>
+   </form><p class="small">Déjà inscrit ? <button class="link" data-go="login">Se connecter</button></p>`);
+}
+function vLogin(){
+  return authShell(`<h1 style="font-size:26px">Connexion</h1>${S.next?`<div class="note">${loginNote()}</div>`:''}
+   <form class="stack" data-form="login" novalidate><label class="f">Téléphone ou e-mail<input class="inp" id="li-id" autocomplete="username"></label>
+   <label class="f">Mot de passe<input class="inp" id="li-pw" type="password" autocomplete="current-password"></label>
+   <p class="err-t" id="li-err" hidden></p><button class="btn p" type="submit">Se connecter</button></form>
+   <div class="hr"></div><p class="small muted">Accès de démonstration :</p>
+   <div class="row"><button class="btn g sm" data-act="demoLogin" data-arg="client">Particulier</button><button class="btn g sm" data-act="demoLogin" data-arg="pro">Professionnel</button><button class="btn g sm" data-space="a">Administrateur</button></div>
+   <p class="small">Pas encore de compte ? <button class="link" data-go="signup">Créer un compte</button></p>`);
+}
+
+/* ============ Dépôt de demande ============ */
+function vNewRequest(){
+  const d=S.draft,e=S.errs,st=S.wiz;
+  const labels=['Prestation','Projet','Budget','Documents','Vérification'];
+  if(st===6){const r=S.requests[0];return header()+`<section class="wiz stack" style="gap:18px;text-align:left">
+    <span class="eyebrow">Demande envoyée</span><h1 style="font-size:30px">Votre demande est enregistrée</h1>
+    <div class="card flat stack"><span class="muted small">Référence</span><span class="amt num">${r.ref}</span></div>
+    <p class="muted">Notre équipe la relit avant publication. Les professionnels vérifiés de votre zone sont ensuite alertés : jusqu'à ${MAX_PROS} d'entre eux pourront vous écrire dans la messagerie. Vous serez prévenu par SMS et par e-mail à chaque nouveau message.</p>
+    <div class="note w">Maquette : la demande n'est enregistrée que dans cette page.</div>
+    <div class="row cta"><button class="btn p" data-go="c-messages">Voir un exemple de messagerie</button><button class="btn g" data-go="c-requests">Mes demandes</button></div></section>`+footer()}
+  let body='';
+  if(st===1){body=`<h2 style="font-size:22px">Quelle prestation recherchez-vous ?</h2>
+    <div class="g2" style="gap:12px">${CATS.map(c=>`<button class="opt ${d.cat===c.id?'on':''}" data-act="pickCat" data-arg="${c.id}"><div class="row" style="flex-wrap:nowrap"><div class="ic">${I[c.id]}</div><b>${c.name}</b></div><span class="small muted">${c.short}</span></button>`).join('')}</div>
+    ${e.cat?`<p class="err-t">${e.cat}</p>`:''}
+    ${d.cat?`<label class="f">Précisez la prestation<select class="inp" data-bind="sub"><option value="">Choisir…</option>${cat(d.cat).items.map(i=>`<option ${d.sub===i?'selected':''}>${i}</option>`).join('')}</select></label>${e.sub?`<p class="err-t">${e.sub}</p>`:''}`:''}`}
+  if(st===2){const sel=(k,opts,ph='Choisir…')=>`<select class="inp ${e[k]?'bad':''}" data-bind="${k}"><option value="">${ph}</option>${opts.map(o=>`<option ${d[k]===o?'selected':''}>${esc(o)}</option>`).join('')}</select>${e[k]?`<span class="err-t">${e[k]}</span>`:''}`;
+    body=`<h2 style="font-size:22px">Décrivez votre projet</h2>
+    <label class="f">Type de bâtiment${sel('type',['Maison individuelle (plain-pied)','Maison individuelle (R+1 ou plus)','Immeuble d\'habitation','Local commercial ou bureaux','Extension ou surélévation','Aménagement intérieur','Autre'])}</label>
+    <label class="f">Description du besoin<span class="h">Pièces souhaitées, contraintes, ce que vous attendez comme rendu.</span><textarea class="inp ${e.desc?'bad':''}" data-bind="desc" placeholder="Ex. : villa R+1, 4 chambres dont une suite parentale…">${esc(d.desc)}</textarea>${e.desc?`<span class="err-t">${e.desc}</span>`:''}</label>
+    <div class="g2" style="gap:12px"><label class="f">Commune${sel('commune',COMMUNES)}</label><label class="f">Quartier<span class="h">Facultatif</span><input class="inp" data-bind="quartier" value="${esc(d.quartier)}"></label></div>
+    <div class="g2" style="gap:12px"><label class="f">Statut du terrain${sel('terrain',TERRAIN)}</label><label class="f">Phase du projet${sel('phase',PHASES)}</label></div>
+    <div class="g3" style="gap:12px"><label class="f">Surface (m²)<span class="h">Facultatif</span><input class="inp num" data-bind="surface" inputmode="numeric" value="${esc(d.surface)}" placeholder="200"></label><label class="f">Niveaux<span class="h">Facultatif</span><select class="inp" data-bind="niveaux"><option value="">Choisir…</option>${NIVEAUX.map(o=>`<option ${d.niveaux===o?'selected':''}>${o}</option>`).join('')}</select></label><label class="f">Nombre de pièces<span class="h">Facultatif</span><input class="inp num" data-bind="pieces" inputmode="numeric" value="${esc(d.pieces)}" placeholder="6"></label></div>
+    <label class="f">Dimensions du terrain et contraintes<span class="h">Facultatif</span><input class="inp" data-bind="dims" value="${esc(d.dims)}" placeholder="Ex. : 10 m × 20 m, entrée côté nord"></label>
+    <label class="f">Délai souhaité${sel('delai',['Dès que possible','Sous 2 semaines','Sous 1 mois','Sous 2 mois','Pas de contrainte'])}</label>`}
+  if(st===3){body=`<h2 style="font-size:22px">Votre budget</h2>
+    <p class="muted">Indiquez le montant que vous prévoyez pour cette prestation. Il aide les professionnels à savoir si votre demande leur correspond ; le prix final se fixe directement avec le professionnel choisi.</p>
+    <label class="f" for="rq-budget">Budget de la prestation (FCFA)<input class="inp num ${e.budget?'bad':''}" id="rq-budget" data-bind="budget" inputmode="numeric" autocomplete="off" placeholder="Ex. : 600000" value="${esc(d.budget)}"></label>
+    <p class="err-t" id="budget-err" ${e.budget?'':'hidden'}>${e.budget||''}</p>`}
+  if(st===4){body=`<h2 style="font-size:22px">Ajoutez vos documents</h2><p class="muted">Facultatif. Photo du terrain, croquis, plan existant.</p>
+    <label class="drop" for="rq-files">${I.file}<b>Choisir des fichiers</b><span class="small muted">PDF, JPG, PNG, DWG · 25 Mo maximum par fichier</span><input type="file" id="rq-files" multiple accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf" style="max-width:100%"></label>
+    ${d.files.length?`<div class="files">${d.files.map((f,i)=>`<div class="file">${I.file}<span class="nm">${esc(f.name)}</span><button class="link small" data-act="rmFile" data-arg="${i}">Retirer</button></div>`).join('')}</div>`:''}`}
+  if(st===5){const r=(k,v,s)=>`<div class="k">${k}</div><div>${v}</div><div><button class="link small" data-act="wizTo" data-arg="${s}">Modifier</button></div>`;
+    body=`<h2 style="font-size:22px">Vérifiez votre demande</h2><div class="recap">
+     ${r('Prestation',`<b>${cat(d.cat).name}</b><br><span class="muted">${esc(d.sub)}</span>`,1)}
+     ${r('Projet',esc(d.type)+(d.niveaux?' · '+esc(d.niveaux):'')+(d.pieces?' · '+esc(d.pieces)+' pièces':''),2)}
+     ${r('Description',`<span style="white-space:pre-wrap">${esc(d.desc)}</span>`,2)}
+     ${r('Localisation',esc(d.commune)+(d.quartier?', '+esc(d.quartier):''),2)}
+     ${r('Terrain',esc(d.terrain)+(d.surface?' · '+esc(d.surface)+' m²':'')+(d.dims?'<br><span class="muted">'+esc(d.dims)+'</span>':''),2)}
+     ${r('Délai souhaité',esc(d.delai),2)}
+     ${r('Budget',`<span class="num">${fcfa(budgetNum(d.budget))}</span>${isBig(d.budget)?' '+pill('Gros budget','ok'):''}`,3)}
+     ${r('Documents',d.files.length?d.files.map(f=>esc(f.name)).join('<br>'):'<span class="muted">Aucun fichier joint</span>',4)}
+    </div><label class="chk" style="margin-top:12px"><input type="checkbox" id="rq-ok"> Je confirme que ces informations sont exactes. J'accepte que jusqu'à ${MAX_PROS} professionnels vérifiés m'écrivent dans la messagerie BUILDSEN.</label>${e.ok?`<p class="err-t">${e.ok}</p>`:''}`}
+  return header()+`<section class="wiz"><span class="eyebrow">Nouvelle demande</span><h1 style="font-size:28px;margin-top:6px">Déposer une demande</h1>
+   <div class="prog" aria-label="Étape ${st} sur 5">${labels.map((l,i)=>`<div class="${i+1<st?'done':i+1===st?'cur':''}"><span>${l}</span></div>`).join('')}</div>
+   <div class="stack" style="gap:18px">${body}</div>
+   <div class="wiz-nav">${st>1?`<button class="btn g" data-act="wizBack">Retour</button>`:'<span></span>'}${st<5?`<button class="btn p" data-act="wizNext">Continuer</button>`:`<button class="btn p" data-act="wizSubmit">Envoyer ma demande</button>`}</div></section>`+footer();
+}
+function checkBudget(v){
+  const s=String(v).replace(/[\s  .]/g,'');
+  if(s==='')return 'Indiquez votre budget : il aide les professionnels à vous répondre.';
+  if(!/^\d+$/.test(s))return 'Saisissez un montant en chiffres uniquement.';
+  if(+s<10000)return 'Le montant semble trop faible. Vérifiez votre saisie.';
+  if(+s>5e9)return 'Ce montant semble trop élevé. Vérifiez votre saisie.';
+  return '';
+}
+
+/* ============ Notifications ============ */
+const NOTIFS={
+ pro:[
+  {k:'ok',t:'Nouveau message d\'Awa D.',d:'Plans villa R+1 · « Bonjour, oui l\'entrée est côté nord… »',w:'il y a 4 h',v:'p-messages'},
+  {k:'ok',t:'Awa D. a partagé son WhatsApp avec vous',d:'Plans villa R+1, Keur Massar. Vous pouvez continuer l\'échange sur WhatsApp.',w:'il y a 3 h',v:'p-messages'},
+  {k:'',t:'Nouvelle demande dans votre zone',d:'DQE immeuble R+3 · Ouakam · budget 1 500 000 FCFA.',w:'il y a 5 h',v:'p-request',a:'r2'},
+  {k:'warn',t:'Justificatif à renouveler',d:"Attestation d'expérience à mettre à jour avant le 01/03/2027.",w:'il y a 5 jours',v:'p-verif'}
+ ],
+ client:[
+  {k:'ok',t:'Nouveau message de Moussa D.',d:'« Je peux vous proposer 550 000 FCFA, livrés en 18 jours. On continue sur WhatsApp ? »',w:'il y a 3 h',v:'c-messages'},
+  {k:'ok',t:'Aïssatou S. vous a écrit',d:'Plans villa R+1 · ingénieure, profil vérifié.',w:'il y a 2 h',v:'c-messages'},
+  {k:'ok',t:'Demande vérifiée et publiée',d:'BS-2026-04172 · Plans villa R+1 : les professionnels de votre zone sont alertés.',w:'hier',v:'c-requests'},
+  {k:'warn',t:'Conseil de sécurité',d:'Ne versez jamais la totalité du prix d\'avance.',w:'hier',v:'help'}
+ ]};
+const unread=kind=>NOTIFS[kind].filter(n=>!n.read).length;
+function vNotifs(kind){
+  const L=NOTIFS[kind],isPro=kind==='pro';
+  return space(kind,isPro?'p-notifs':'c-notifs',`<div class="ph"><div><h1>Notifications</h1><p class="muted">${unread(kind)} non lue${unread(kind)>1?'s':''} ${F()}</p></div>${unread(kind)?`<button class="btn g" data-act="readAll" data-arg="${kind}">Tout marquer comme lu</button>`:''}</div>
+   <div class="ord-g"><div class="list">${L.map((n,i)=>`<div class="li clk notif ${n.read?'':'unread'}" data-act="openNotif" data-arg="${kind}|${i}"><span class="dot ${n.k}"></span><div class="grow"><b>${n.t}</b><br><span class="small muted">${n.d}</span></div><span class="small muted" style="white-space:nowrap">${n.w}</span></div>`).join('')}</div>
+    <div class="card stack" style="gap:10px"><h3>Recevoir les notifications</h3><label class="chk"><input type="checkbox" checked disabled> Dans l'application</label><label class="chk"><input type="checkbox" checked> SMS</label><label class="chk"><input type="checkbox" checked> E-mail</label><label class="chk"><input type="checkbox" disabled> WhatsApp (bientôt)</label><p class="small muted">Maquette : aucun SMS ni e-mail n'est envoyé.</p></div></div>`);
+}
+
+function space(kind,active,content){
+  const myConvs=S.convs.filter(c=>kind==='client'||c.pro===ME);
+  const M={
+   client:{who:'Awa Diallo',role:'Particulier',items:[['c-dash','Accueil'],['c-requests','Mes demandes'],['c-messages','Messagerie',myConvs.length],['c-notifs','Notifications',unread('client')],['c-profile','Mon profil']]},
+   pro:{who:'Moussa Diop',role:'Ingénieur en génie civil',items:[['p-home','Accueil'],['p-requests','Demandes disponibles',PREQS.length],['p-messages','Messagerie',myConvs.length],...(PRICING?[['p-plan','Mon abonnement']]:[]),['p-notifs','Notifications',unread('pro')],['p-reviews','Mes avis'],['p-verif','Mes justificatifs'],['p-profile','Profil et portfolio']]}
+  }[kind];
+  return `<header class="hdr"><div class="hdr-in">${logo()}<span class="pill ${kind==='pro'?'ok':''} hide-m" style="margin-left:auto">${kind==='pro'?'Espace professionnel':'Espace particulier'}</span>
+   <div class="hdr-act">${kind==='client'?`<button class="btn p sm" data-go="new-request">Nouvelle demande</button>`:''}<button class="bell" data-go="${kind==='pro'?'p-notifs':'c-notifs'}" aria-label="Notifications"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>${unread(kind)?`<span class="bell-n">${unread(kind)}</span>`:''}</button><button class="btn g sm hide-m" data-act="logout">Déconnexion</button></div></div></header>
+   <div class="sp"><nav class="side" aria-label="Menu de l'espace"><div class="who"><div class="row" style="flex-wrap:nowrap">${kind==='pro'?av(pro(ME)):`<div class="avatar s">AD</div>`}<div><b>${M.who}</b><br><span class="small muted">${M.role}</span></div></div>${kind==='pro'?`<div class="row" style="gap:6px">${pill('Profil vérifié','ok')}${PRICING?planBadge(S.plan.key):''}</div>`:''}<span class="small muted">Compte de démonstration</span></div>
+   ${M.items.map(([v,t,c])=>`<button class="m ${active===v?'on':''}" data-go="${v}">${t}${c?`<span class="cnt">${c}</span>`:''}</button>`).join('')}</nav>
+   <main class="main">${content}</main></div>`;
+}
+
+/* ============ Messagerie (commune aux deux espaces) ============ */
+// Une conversation = 1 contact décompté de la formule du professionnel, au moment où il l'ouvre.
+function thread(c,asPro){
+  const p=pro(c.pro),r=S.requests.find(x=>x.ref===c.req)||S.requests[0];
+  const who=asPro?'Awa D.':p.name;
+  return `<div class="card stack chat" style="gap:12px">
+   <div class="row between" style="gap:10px;flex-wrap:nowrap"><div class="row" style="flex-wrap:nowrap;gap:10px">${asPro?'<div class="avatar s">AD</div>':av(p)}<div style="min-width:0"><b>${esc(who)}</b> ${asPro?'':planBadge(p.plan)}<br><span class="small muted">${asPro?'Particulier · '+esc(r.commune):stat(p)} · ${esc(r.title)}</span></div></div>${asPro?'':`<button class="link small" data-go="pro-profile" data-arg="${p.id}">Profil</button>`}</div>
+   ${c.shared?`<div class="offer" style="gap:6px"><b>${asPro?'Awa D. a partagé son WhatsApp avec vous':'Vous avez partagé votre WhatsApp avec '+esc(first(p))}</b><span class="num" style="font-family:var(--display);font-size:18px;font-weight:700">${asPro?CLIENT_TEL:p.tel}</span><button class="btn p sm" data-act="wa" style="align-self:flex-start">${I.wa} Continuer sur WhatsApp</button></div>`:''}
+   <div class="msgs">${c.msgs.map(m=>{const mine=asPro?!m.me:m.me;return `<div class="msg ${mine?'me':''}">${esc(m.t)}<div class="meta">${mine?'Vous':esc(asPro?'Awa D.':first(p))} · ${m.w}</div></div>`}).join('')}</div>
+   <form class="stack" data-form="msg" data-arg="${c.id}" style="gap:8px"><textarea class="inp" id="msg-t" style="min-height:70px" placeholder="Écrivez votre message…"></textarea><p class="err-t" id="msg-err" hidden></p>
+    <div class="row between" style="gap:8px"><button class="btn p sm" type="submit">Envoyer</button>
+    ${!asPro&&!c.shared?`<button class="btn o sm" type="button" data-act="share" data-arg="${c.id}">${I.wa} Partager mon WhatsApp</button>`:''}</div></form>
+   <p class="small muted">${c.shared?'Vous pouvez continuer ici ou sur WhatsApp.':(asPro?'Le client peut partager son WhatsApp avec vous quand il le souhaite.':'Quand vous êtes prêt, partagez votre WhatsApp avec ce professionnel.')}</p>
+   <div class="row between">${!asPro?`<button class="link small" data-act="rateFor" data-arg="${c.id}">Laisser un avis</button>`:'<span></span>'}<button class="link small" data-act="reportConv" data-arg="${c.id}" style="color:var(--stone)">Signaler cette conversation</button></div>
+   ${!asPro&&S.rateFor===c.id?rateForm(c.id,p):''}
+  </div>`;
+}
+const rateForm=(k,p)=>S.rating[k+'-done']?`<div class="note ok small">Merci pour votre avis (${S.rating[k+'-done']}/5). Il sera publié après modération.</div>`:`<form class="stack" data-form="rate" data-arg="${k}" style="gap:10px"><b>Votre avis sur ${esc(p.name)}</b><div class="stars">${[1,2,3,4,5].map(n=>`<button type="button" class="${(S.rating[k]||0)>=n?'on':''}" data-act="star" data-arg="${k}|${n}">${n}</button>`).join('')}</div><textarea class="inp" id="rv-t" placeholder="Qualité du travail, respect du délai, disponibilité…"></textarea><p class="err-t" id="rv-err" hidden></p><button class="btn p sm" type="submit" style="align-self:flex-start">Publier mon avis</button></form>`;
+function inbox(kind){
+  const asPro=kind==='pro';
+  const L=S.convs.filter(c=>!asPro||c.pro===ME);
+  const cur=L.find(c=>c.id===S.openConv)||L[0];
+  const r=S.requests[0];
+  return `<div class="ph"><div><h1>Messagerie</h1><p class="muted">${asPro?'Vos conversations avec les clients.':esc(r.title)+' · '+L.length+'/'+MAX_PROS+' professionnels vous ont écrit'} ${F()}</p></div></div>
+   ${L.length?`<div class="inbox">
+    <div class="list">${L.map(c=>{const p=pro(c.pro),last=c.msgs[c.msgs.length-1];return `<div class="li clk ${cur&&cur.id===c.id?'sel':''}" data-act="openConv" data-arg="${c.id}">${asPro?'<div class="avatar s">AD</div>':av(p)}<div class="grow" style="min-width:0"><b>${asPro?'Awa D.':esc(p.name)}</b> ${asPro?'':planBadge(p.plan)}<br><span class="small muted" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(last.t)}</span></div>${c.shared?pill('WhatsApp','ok'):''}</div>`}).join('')}</div>
+    ${cur?thread(cur,asPro):''}</div>`:`<div class="empty">Aucune conversation pour l'instant.</div>`}
+   ${asPro?'':`<div class="note" style="margin-top:18px">${RELATION} Ne versez jamais la totalité du prix d'avance.</div>`}`;
+}
+
+/* ============ Espace particulier ============ */
+function vCDash(){
+  const r=S.requests[0];
+  return space('client','c-dash',`<div class="ph"><div><h1>Bonjour Awa</h1><p class="muted">Bienvenue sur votre espace BUILDSEN. ${F()}</p></div><button class="btn p" data-go="new-request">Déposer une nouvelle demande</button></div>
+   <div class="stack" style="gap:22px">
+    <div class="stack"><h2 style="font-size:18px">À faire</h2><div class="list"><div class="li"><div class="grow"><b>${S.convs.length} professionnels vous ont écrit</b><br><span class="small muted">${esc(r.title)} · ${S.convs.length}/${MAX_PROS} places prises.</span></div><button class="btn o sm" data-go="c-messages">Lire les messages</button></div></div></div>
+    <div class="stack"><h2 style="font-size:18px">Qui vous a écrit</h2><div class="g3">${S.convs.map(c=>{const p=pro(c.pro);return `<button class="card stack req-card plan-card plan-${p.plan.toLowerCase()}" data-act="openConv" data-arg="${c.id}" data-go2="c-messages"><div class="row" style="flex-wrap:nowrap">${av(p)}<div><b>${esc(p.name)}</b> ${planBadge(p.plan)}<br><span class="small muted">${stat(p)}</span></div></div><div class="row" style="gap:6px">${verifBadge(p)}${avis(p)}</div></button>`}).join('')}</div></div>
+    <div class="card flat stack" style="gap:6px"><b>Bon à savoir</b><span class="small muted">${RELATION} Votre numéro n'est partagé qu'avec les professionnels que vous choisissez.</span></div>
+   </div>`);
+}
+function vCRequests(){
+  return space('client','c-requests',`<div class="ph"><h1>Mes demandes</h1><button class="btn p" data-go="new-request">Nouvelle demande</button></div>
+   <div class="list">${S.requests.map(r=>{const n=r.demo?S.convs.length:0;return `<div class="li"><div class="grow"><b>${esc(r.title)}</b> ${r.demo?F():''}<br><span class="small muted num">${r.ref} · ${cat(r.cat).name} · ${esc(r.commune)} · Budget : ${fcfa(budgetNum(r.budget))}${r.terrain?' · '+esc(r.terrain):''}</span></div>${pill(r.status,r.status==='Publiée'?'ok':r.status==='Clôturée'?'':'warn')}${r.status==='Publiée'?`<span class="small muted">${n}/${MAX_PROS} pros</span><button class="btn o sm" data-go="c-messages">Messagerie</button><button class="btn g sm" data-act="closeReq" data-arg="${r.ref}">Clôturer</button>`:''}</div>`}).join('')}</div>
+   <p class="small muted" style="margin-top:12px">Clôturez votre demande quand vous avez trouvé votre professionnel : plus personne ne pourra vous écrire à son sujet.</p>`);
+}
+function vCProfile(){
+  return space('client','c-profile',`<div class="ph"><h1>Mon profil</h1></div><form class="card stack" data-form="saveprof" style="max-width:620px">
+   <div class="g2" style="gap:12px"><label class="f">Prénom<input class="inp" value="Awa"></label><label class="f">Nom<input class="inp" value="Diallo"></label></div>
+   <label class="f">Téléphone<span class="h">Vérifié par SMS · partagé uniquement avec les professionnels que vous choisissez</span><input class="inp" value="${CLIENT_TEL}"></label>
+   <label class="chk"><input type="checkbox" checked> Recevoir un SMS à chaque nouveau message</label>
+   <button class="btn p" type="submit" style="align-self:flex-start">Enregistrer</button></form>`);
+}
+
+/* ============ Espace professionnel ============ */
+// age en heures depuis la publication ; budget en FCFA ; q = nombre de professionnels ayant déjà écrit
+const PREQS=[
+ {id:'r1',q:4,title:'Plans villa R+1 — 4 chambres',cat:'plans',com:'Keur Massar',budget:'600000',delai:'Sous 1 mois',terrain:'Titre foncier',pieces:'6',files:2,age:2,mine:true},
+ {id:'r2',q:2,title:'DQE pour immeuble R+3',cat:'metres',com:'Ouakam',budget:'1500000',delai:'Sous 2 semaines',terrain:'Titre foncier',pieces:'—',files:4,age:5},
+ {id:'r3',q:5,title:'Note de calcul dalle pleine 6 × 5 m',cat:'etudes',com:'Rufisque',budget:'300000',delai:'Sous 2 semaines',terrain:'Délibération',pieces:'—',files:1,age:30},
+ {id:'r4',q:1,title:'Mise au propre de plans papier (3 niveaux)',cat:'dao',com:'Pikine',budget:'150000',delai:'Dès que possible',terrain:'Bail',pieces:'9',files:3,age:60}
+];
+const ageLabel=h=>h<24?'il y a '+h+' h':'il y a '+Math.round(h/24)+' j';
+// Ce que voit un professionnel selon sa formule : en formule gratuite, demandes récentes et gros budgets masqués
+const lockReason=r=>S.plan.key!=='FREE'?'':isBig(r.budget)?'Demande à gros budget : réservée aux abonnés Pro et Premium.':r.age<FREE_DELAY_H?'Visible dans '+(FREE_DELAY_H-r.age)+' h en formule gratuite, tout de suite en Pro.':'';
+function vEspacePro(){
+  const steps=[['Créez votre compte','Gratuit. Choisissez votre statut : ingénieur en génie civil, technicien supérieur ou entreprise.'],['Faites vérifier vos justificatifs','Pièce d\'identité et diplôme. Le badge « vérifié » est gratuit et attribué après examen.'],['Recevez les demandes de votre zone','Avec une alerte par SMS et WhatsApp dès qu\'une demande correspond à vos spécialités.'],['Écrivez au client','Dans la messagerie BUILDSEN. '+MAX_PROS+' professionnels au maximum par demande : soyez parmi les premiers.'],['Continuez sur WhatsApp','Quand le client partage son numéro. Prix, délai et paiement se décident entre vous.']];
+  return pub(`<section class="hero"><div class="wrap hero-g">
+   <div class="stack" style="gap:20px"><span class="eyebrow">Espace professionnels</span>
+    <h1>Des clients pour vos <em>plans, métrés et études.</em></h1>
+    <p class="lead">Ingénieurs en génie civil, techniciens supérieurs et entreprises : consultez les demandes des particuliers de Dakar et écrivez-leur directement.</p>
+    <div class="row cta"><button class="btn p" data-go="signup" data-arg="pro">Créer mon compte pro</button><button class="btn o" data-go="login">Se connecter</button></div>
+    <p class="small muted">Inscription gratuite. Aucune commission sur vos missions.</p></div>
+   <div class="sheet"><div class="sheet-h"><span><b>Demandes ouvertes</b></span>${F()}</div>
+    ${HOME_REQS.slice(0,4).map((r,idx)=>`<button class="sheet-r sheet-link" data-go="demande" data-arg="${idx}" style="grid-template-columns:1fr auto"><span style="min-width:0"><b>${esc(r.t)}</b><br><span class="small muted">${esc(r.l)} · ${cat(r.c).name}</span></span>${quotePill(r)}</button>`).join('')}
+    <div class="sheet-r" style="grid-template-columns:1fr"><button class="link small" data-go="demandes" style="justify-self:start">Voir toutes les demandes</button></div></div>
+  </div></section>
+  <section class="sec alt"><div class="wrap stack" style="gap:24px"><div class="stack"><span class="eyebrow">Comment ça marche</span><h2 style="font-size:30px">De l'inscription au premier client</h2></div>
+   <ol class="stack" style="list-style:none;padding:0;margin:0;gap:12px">${steps.map(([t,d],i)=>`<li class="card row" style="flex-wrap:nowrap;align-items:flex-start;gap:16px"><span class="avatar s" style="flex:none">${i+1}</span><div class="stack" style="gap:4px"><b>${t}</b><span class="muted small">${d}</span></div></li>`).join('')}</ol></div></section>
+  <section class="sec"><div class="wrap stack" style="gap:24px"><div class="stack"><span class="eyebrow">Formules</span><h2 style="font-size:30px">Choisissez votre formule</h2></div>${plansBlock()}
+   <div class="card flat row between" style="gap:16px"><div class="stack" style="max-width:56ch;gap:6px"><b>Prêt à recevoir vos premières demandes ?</b><span class="small muted">Créez votre profil en quelques minutes, puis transmettez vos justificatifs.</span></div><button class="btn d" data-go="signup" data-arg="pro">Créer mon compte pro</button></div></div></section>`);
+}
+function quotaCard(){
+  const P=PLANS[S.plan.key],left=quotaLeft();
+  return `<div class="card stack plan-card plan-${S.plan.key.toLowerCase()}" style="gap:8px"><div class="row between"><b>Formule ${P.name}</b>${planBadge(S.plan.key)}</div>
+   ${P.contacts===null?'<span class="small">Contacts illimités</span>':`<span class="small"><b>${S.plan.used}/${P.contacts}</b> contacts utilisés ce mois-ci · il vous en reste <b>${left}</b></span><div class="quota"><i style="width:${Math.min(100,S.plan.used/P.contacts*100)}%"></i></div>`}
+   ${S.plan.launch?`<span class="small muted">Offre de lancement jusqu'au ${S.plan.until}</span>`:''}</div>`;
+}
+function vPHome(){
+  const L=S.convs.filter(c=>c.pro===ME);
+  return space('pro','p-home',`<div class="ph"><div><h1>Bonjour Moussa</h1><p class="muted">Ingénieur en génie civil · ${pill('Profil vérifié','ok')} ${F()}</p></div><button class="btn p" data-go="p-requests">Voir les demandes</button></div>
+   <div class="stack" style="gap:22px">
+    ${PRICING?quotaCard():''}
+    <div class="g2">
+     <div class="stack"><h2 style="font-size:18px">Nouvelles demandes de votre zone</h2><div class="list">${PREQS.map(r=>`<div class="li clk" data-go="p-request" data-arg="${r.id}"><div class="ic">${I[r.cat]}</div><div class="grow"><b>${r.title}</b><br><span class="small muted">${r.com} · ${ageLabel(r.age)} · ${fcfa(budgetNum(r.budget))}</span></div>${placesPill(r)}</div>`).join('')}</div></div>
+     <div class="stack"><h2 style="font-size:18px">Mes conversations</h2><div class="list">${L.map(c=>`<div class="li clk" data-act="openConv" data-arg="${c.id}" data-go2="p-messages"><div class="avatar s">AD</div><div class="grow"><b>Awa D.</b><br><span class="small muted">Plans villa R+1 · ${esc(c.msgs[c.msgs.length-1].t.slice(0,60))}…</span></div>${c.shared?pill('WhatsApp','ok'):''}</div>`).join('')||'<div class="li"><span class="muted small">Aucune conversation.</span></div>'}</div>
+      <div class="card flat stack" style="gap:6px"><b>Conseil</b><span class="small muted">Soyez précis dès le premier message : ce que vous proposez, votre délai et votre façon de travailler. Le client choisit à qui répondre.</span></div></div>
+    </div>
+   </div>`);
+}
+const placesPill=r=>r.q>=MAX_PROS?pill('Complète','warn'):pill((MAX_PROS-r.q)+' place'+(MAX_PROS-r.q>1?'s':'')+' sur '+MAX_PROS,'ok');
+function vPRequests(){
+  return space('pro','p-requests',`<div class="ph"><div><h1>Demandes disponibles</h1><p class="muted">Demandes de votre zone, filtrées selon vos spécialités. ${F()}</p></div>${PRICING?planBadge(S.plan.key):''}</div>
+   ${PRICING?`<div class="row" style="gap:8px;margin-bottom:12px"><span class="small muted">Démonstration :</span><button class="btn sm ${S.plan.key==='FREE'?'d':'g'}" data-act="demoPlan" data-arg="FREE">Voir en formule Gratuit</button><button class="btn sm ${S.plan.key==='PRO'?'d':'g'}" data-act="demoPlan" data-arg="PRO">Pro</button><button class="btn sm ${S.plan.key==='PREMIUM'?'d':'g'}" data-act="demoPlan" data-arg="PREMIUM">Premium</button></div>`:''}
+   <div class="list">${PREQS.map(r=>{const lock=PRICING?lockReason(r):'';return `<div class="li ${lock?'':'clk'}" ${lock?'':`data-go="p-request" data-arg="${r.id}"`} style="${lock?'opacity:.7':''}"><div class="ic">${I[r.cat]}</div><div class="grow"><b>${lock&&isBig(r.budget)?'Demande à gros budget':r.title}</b><br><span class="small muted">${cat(r.cat).name} · ${r.com} · ${ageLabel(r.age)}${lock?'':' · '+fcfa(budgetNum(r.budget))+' · '+esc(r.terrain)}</span>${lock?`<br><span class="small" style="color:var(--warn)">${I.lock.replace('<svg','<svg width="13" height="13" style="vertical-align:-2px"')} ${lock}</span>`:''}</div>${isBig(r.budget)&&!lock?pill('Gros budget','ok'):''}${placesPill(r)}</div>`}).join('')}</div>
+   <p class="small muted" style="margin-top:14px">Consulter une demande est gratuit. Écrire au client ouvre une conversation et compte pour 1 contact de votre formule. ${MAX_PROS} professionnels au maximum par demande.</p>`);
+}
+function vPRequest(){
+  const r=PREQS.find(x=>x.id===S.arg)||PREQS[0],existing=r.mine&&S.convs.find(c=>c.pro===ME);
+  const full=r.q>=MAX_PROS&&!existing,left=quotaLeft();
+  return space('pro','p-requests',`<button class="link" data-go="p-requests" style="margin-bottom:14px">← Demandes disponibles</button>
+   <div class="ph"><div class="stack" style="gap:6px"><span class="small muted">${cat(r.cat).name} · publiée ${ageLabel(r.age)} ${F()}</span><h1>${r.title}</h1><span class="muted">Particulier · ${r.com}, Dakar · numéro vérifié par SMS</span></div>${placesPill(r)}</div>
+   <div class="ord-g"><div class="stack" style="gap:18px">
+    <div class="card stack"><h3>Besoin</h3><p style="color:var(--slate)">${esc(S.requests[0].desc)}</p>
+     <div class="g3" style="gap:10px"><div><span class="small muted">Budget</span><br><b>${fcfa(budgetNum(r.budget))}</b>${isBig(r.budget)?' '+pill('Gros budget','ok'):''}</div><div><span class="small muted">Délai souhaité</span><br><b>${r.delai}</b></div><div><span class="small muted">Statut du terrain</span><br><b>${esc(r.terrain)}</b></div></div>
+     <div class="files">${Array.from({length:r.files},(_,i)=>`<div class="file">${I.file}<span class="nm">${['plan-cadastral.pdf','photo-terrain.jpg','croquis.jpg','releve.pdf'][i]}</span><button class="link small" data-act="viewDoc">Consulter</button></div>`).join('')}</div></div>
+    ${existing?`<div class="card stack"><b>Vous avez déjà une conversation avec ce client.</b><button class="btn p" data-act="openConv" data-arg="${existing.id}" data-go2="p-messages" style="align-self:flex-start">Ouvrir la conversation</button></div>`
+     :full?`<div class="note w">Cette demande est complète : ${MAX_PROS} professionnels ont déjà écrit au client.</div>`
+     :`<form class="card stack" data-form="contact" data-arg="${r.id}" novalidate><h3>Écrire au client</h3>
+      <label class="f">Votre premier message<span class="h">Présentez-vous, ce que vous proposez et votre délai. Le client peut aussi partager son WhatsApp avec vous.</span><textarea class="inp" id="ct-first" placeholder="Bonjour, je peux réaliser…"></textarea></label>
+      <div class="note small">${PRICING?(PLANS[S.plan.key].contacts===null?'Formule Premium : contacts illimités.':`Ouvrir cette conversation compte pour <b>1 contact</b>. Il vous en restera <b>${left-1<0?0:left-1}</b> ce mois-ci.`):'Ouvrir cette conversation compte pour 1 contact de votre formule.'} Le contact reste décompté même si le client ne répond pas.</div>
+      <p class="err-t" id="ct-err" hidden></p>
+      <button class="btn p" type="submit" style="align-self:flex-start" ${PRICING&&left<=0?'disabled':''}>Envoyer et ouvrir la conversation</button>
+      ${PRICING&&left<=0?`<p class="small" style="color:var(--warn)">Vous avez utilisé tous vos contacts ce mois-ci. <button class="link small" data-go="p-plan">Passer à une formule supérieure</button></p>`:''}</form>`}
+   </div>
+    <div class="card stack" style="gap:8px"><h3>Places sur cette demande</h3><div class="places">${Array.from({length:MAX_PROS},(_,i)=>`<i class="${i<r.q?'on':''}"></i>`).join('')}</div><span class="small muted">${r.q}/${MAX_PROS} professionnels ont déjà écrit au client.</span>${PRICING?quotaCard():''}</div></div>`);
+}
+function vPMessages(){return space('pro','p-messages',inbox('pro'))}
+function vCMessages(){return space('client','c-messages',inbox('client'))}
+function vPPlan(){
+  if(!PRICING)return vPHome();
+  return space('pro','p-plan',`<div class="ph"><h1>Mon abonnement</h1></div><div class="stack" style="gap:20px;max-width:900px">${quotaCard()}${plansBlock()}
+   <div class="row" style="gap:10px">${['PRO','PREMIUM'].map(k=>`<button class="btn ${k==='PREMIUM'?'d':'p'}" data-act="buyPlan" data-arg="${k}">Payer ${PLANS[k].name} · ${fcfa(PLANS[k].price)} avec Wave ou Orange Money</button>`).join('')}</div>
+   <div class="note w small">Maquette : aucun paiement n'est effectué. Le paiement par Wave et Orange Money sera branché après l'immatriculation de l'entreprise.</div></div>`);
+}
+function vPReviews(){
+  return space('pro','p-reviews',`<div class="ph"><h1>Mes avis</h1>${F()}</div><div class="list">${[['5/5','Très réactif, plans clairs et livrés à temps.','Client M. S. · 04/10/2026'],['4/5','Bon travail, une reprise a été nécessaire sur le métré.','Client K. D. · 19/09/2026']].map(a=>`<div class="li"><b class="num" style="font-family:var(--display)">${a[0]}</b><div class="grow">${a[1]}<br><span class="small muted">${a[2]}</span></div><button class="link small" data-act="reportReview">Signaler</button></div>`).join('')}</div>`);
+}
+function vPProfile(){
+  const p=pro(ME);
+  return space('pro','p-profile',`<div class="ph"><h1>Profil et portfolio</h1><button class="btn o" data-go="pro-profile" data-arg="${ME}">Voir mon profil public</button></div>
+   <div class="stack" style="gap:18px;max-width:820px">
+   <form class="card stack" data-form="saveprof"><h3>Présentation</h3><label class="f">Présentation<textarea class="inp">${esc(p.bio)}</textarea></label>
+    <div class="g2" style="gap:12px"><label class="f">Expérience<input class="inp" value="7 ans"></label><label class="f">Logiciels maîtrisés<input class="inp" value="${p.soft.join(', ')}"></label></div>
+    <button class="btn p" type="submit" style="align-self:flex-start">Enregistrer</button></form>
+   <div class="card stack"><h3>Portfolio</h3><div class="g3">${PF[ME].map(x=>pfImg(x)).join('')}</div></div></div>`);
+}
+function vVerif(){
+  const v=S.verif;
+  let body='';
+  if(v.submitted){const s=STATUTS[v.statut];body=`<div class="note">Votre dossier « ${s.name} » est transmis. Il sera examiné sous 5 jours ouvrés.</div><button class="btn g" data-act="verifReset" style="align-self:flex-start">Recommencer la démonstration</button>`}
+  else if(v.step===1){body=`<h2 style="font-size:20px">Quel est votre statut ?</h2><div class="g3" style="gap:12px">${Object.entries(STATUTS).map(([k,s])=>`<button class="opt ${v.statut===k?'on':''}" data-act="vStatut" data-arg="${k}"><b>${s.name}</b><span class="small muted">${s.docs.join(' · ')}</span></button>`).join('')}</div><div class="wiz-nav"><span></span><button class="btn p" data-act="vNext" ${v.statut?'':'disabled'}>Continuer</button></div>`}
+  else{const s=STATUTS[v.statut];body=`<h2 style="font-size:20px">${s.name} : vos justificatifs</h2><form class="stack" data-form="verif" novalidate>
+     <div class="list">${s.docs.map((d,i)=>`<div class="li"><div class="grow"><b>${d}</b><br><span class="small muted">${v.files[d]?esc(v.files[d]):'PDF, JPG ou PNG · 10 Mo max'}</span></div>${v.files[d]?pill('Prêt','ok'):''}<label class="btn o sm" for="vf-f${i}">Choisir</label><input type="file" id="vf-f${i}" data-vdoc="${esc(d)}" hidden></div>`).join('')}</div>
+     <label class="chk"><input type="checkbox" id="vf-ok"> J'atteste l'authenticité des documents transmis.</label><p class="err-t" id="vf-err" hidden></p>
+     <div class="wiz-nav"><button class="btn g" type="button" data-act="vBack">Retour</button><button class="btn p" type="submit">Soumettre mon dossier</button></div></form>`}
+  return space('pro','p-verif',`<div class="ph"><div><h1>Vérification des qualifications</h1><p class="muted">Le badge « vérifié » est gratuit et attribué après examen, jamais automatiquement ni contre paiement.</p></div></div><div style="max-width:860px">${body}</div>`);
+}
+
+/* ============ Administration ============ */
+const AMOD=[['overview','Vue d\'ensemble'],['verifs','Vérifications'],['users','Utilisateurs'],['requests','Demandes'],['reports','Signalements'],['reviews','Avis'],['plans','Formules'],['audit','Journal d\'audit']];
+const AROLES={super:{n:'Super-admin',m:AMOD.map(x=>x[0])},verif:{n:'Vérificateur',m:['overview','verifs','users']},support:{n:'Support',m:['overview','users','reports','plans']},moder:{n:'Modérateur',m:['overview','requests','reviews','reports']}};
+function vAdmin(){
+  if(!S.adminAuthed)return `<header class="hdr"><div class="hdr-in">${logo()}<span class="pill ink" style="margin-left:auto">Administration</span></div></header><section class="sec alt"><div class="wrap" style="max-width:480px"><form class="card stack" data-form="adminlogin" style="padding:30px;gap:16px" novalidate>
+   <h1 style="font-size:24px">Connexion administrateur</h1><label class="f">E-mail<input class="inp" id="ad-mail"></label><label class="f">Mot de passe<input class="inp" type="password"></label>
+   <label class="f">Code de double authentification<input class="inp num" id="ad-otp" inputmode="numeric" maxlength="6"></label><p class="err-t" id="ad-err" hidden></p>
+   <button class="btn d" type="submit">Se connecter</button><button class="btn g" type="button" data-act="adminDemo">Entrer en mode démonstration</button></form></div></section>`;
+  const R=AROLES[S.adminRole];if(!R.m.includes(S.adminTab))S.adminTab='overview';
+  const T=S.adminTab,pend=S.dossiers.filter(d=>d.state==='pending').length,openRep=S.reports.filter(r=>r.s==='À examiner').length;
+  let c='';
+  if(T==='overview'){const k=[['Particuliers inscrits',142],['Pros vérifiés',38],['Abonnés Pro / Premium','24 / 6'],['Demandes publiées (30 j)',57],['Conversations ouvertes (30 j)',181],['Signalements à examiner',openRep]];
+   c=`<div class="ph"><div><h1>Vue d'ensemble</h1><p class="muted">${F()} Chiffres de démonstration.</p></div></div><div class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">${k.map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v num">${v}</div></div>`).join('')}</div>`}
+  if(T==='verifs')c=`<div class="ph"><h1>Vérifications</h1></div><div class="list">${S.dossiers.map(d=>`<div class="li"><div class="grow"><b>${esc(d.name)}</b><br><span class="small muted">${STATUTS[d.statut].name} · ${d.date}</span></div>${pill(d.state==='verified'?'Vérifié':'En attente',d.state==='verified'?'ok':'warn')}${d.state==='pending'?`<button class="btn sm o" data-act="decide" data-arg="${d.id}">Accepter</button>`:''}</div>`).join('')}</div><p class="small muted" style="margin-top:12px">À la validation, les ${LAUNCH.first} premiers professionnels reçoivent automatiquement ${LAUNCH.months} mois de formule Pro.</p>`;
+  if(T==='users')c=`<div class="ph"><h1>Utilisateurs</h1></div><div class="list">${S.users.map((u,i)=>`<div class="li"><div class="grow"><b>${esc(u.n)}</b> ${u.plan?planBadge(u.plan):''} ${F()}<br><span class="small muted">${u.r} · inscrit le ${u.d}${u.plan?' · formule '+PLANS[u.plan].name:''}</span></div>${pill(u.s,u.s==='Actif'?'ok':u.s==='Suspendu'?'err':'warn')}<button class="btn sm ${u.s==='Suspendu'?'o':'x'}" data-act="suspend" data-arg="${i}">${u.s==='Suspendu'?'Réactiver':'Suspendre'}</button></div>`).join('')}</div>`;
+  if(T==='requests')c=`<div class="ph"><h1>Demandes</h1></div><div class="list">${S.adminReqs.map((r,i)=>`<div class="li"><div class="grow"><b>${esc(r.t)}</b><br><span class="small muted num">${r.ref} · ${r.c}</span></div>${pill(r.s,r.s==='Publiée'?'ok':r.s==='Masquée'?'err':'warn')}${r.s==='À modérer'?`<button class="btn sm o" data-act="modReq" data-arg="${i}|Publiée">Publier</button><button class="btn sm x" data-act="modReq" data-arg="${i}|Masquée">Masquer</button>`:''}</div>`).join('')}</div>`;
+  if(T==='reports')c=`<div class="ph"><div><h1>Signalements</h1><p class="muted">Conversations, profils et demandes signalés.</p></div></div><div class="note" style="margin-bottom:16px">BUILDSEN ne tranche pas les désaccords sur une prestation. L'équipe traite les abus : fraude, faux profil, harcèlement.</div>
+    <div class="list">${S.reports.map((r,i)=>`<div class="li"><div class="grow"><b>${esc(r.target)}</b> ${F()}<br><span class="small muted">${r.id} · ${esc(r.who)}</span><br><span class="small">${esc(r.r)}</span></div>${pill(r.s,r.s==='À examiner'?'warn':'ok')}${r.s==='À examiner'?`<button class="btn sm x" data-act="modRep" data-arg="${i}|Compte suspendu">Suspendre</button><button class="btn sm g" data-act="modRep" data-arg="${i}|Classé">Classer</button>`:''}</div>`).join('')}</div>`;
+  if(T==='reviews')c=`<div class="ph"><h1>Avis</h1></div><div class="list">${S.reviews.map((r,i)=>`<div class="li"><b class="num">${r.n}/5</b><div class="grow">${esc(r.txt)}<br><span class="small muted">${esc(r.who)}</span></div>${pill(r.s,r.s==='Publié'?'ok':'warn')}${r.s==='Signalé'?`<button class="btn sm x" data-act="modRev" data-arg="${i}|Masqué">Masquer</button>`:''}</div>`).join('')}</div>`;
+  if(T==='plans')c=`<div class="ph"><h1>Formules</h1></div><div class="stack" style="gap:16px">${PRICING?plansBlock():'<div class="note">Les prix des formules sont masqués sur le site public (paramètre ?tarifs=1 pour les afficher).</div>'}<div class="note small">Pendant la phase pilote, la formule d'un professionnel s'attribue à la main dans Utilisateurs (paiement Wave ou Orange Money reçu, geste commercial). Seuil « gros budget » : au-delà de ${fcfa(BIG_BUDGET)}.</div></div>`;
+  if(T==='audit')c=`<div class="ph"><h1>Journal d'audit</h1></div><div class="list">${S.audit.map(a=>`<div class="li"><span class="small muted num">${a.t}</span><div class="grow">${esc(a.x)}<br><span class="small muted">${esc(a.a)}</span></div></div>`).join('')}</div>`;
+  return `<header class="hdr"><div class="hdr-in">${logo()}<span class="pill ink hide-m" style="margin-left:auto">Administration</span><div class="hdr-act"><select class="inp" id="ad-role" style="min-height:36px;padding:6px 8px;width:auto">${Object.entries(AROLES).map(([k,r])=>`<option value="${k}" ${S.adminRole===k?'selected':''}>${r.n}</option>`).join('')}</select><button class="btn g sm" data-act="adminOut">Quitter</button></div></div></header>
+   <div class="sp"><nav class="side"><div class="who"><b>Rôle : ${R.n}</b></div>${AMOD.filter(m=>R.m.includes(m[0])).map(([k,t])=>`<button class="m ${T===k?'on':''}" data-act="atab" data-arg="${k}">${t}${k==='verifs'&&pend?`<span class="cnt">${pend}</span>`:k==='reports'&&openRep?`<span class="cnt">${openRep}</span>`:''}</button>`).join('')}</nav><main class="main">${c}</main></div>`;
+}
+
+/* ============ Pages d'information ============ */
+function legal(t,secs){return pub(`<section class="sec"><div class="wrap legal stack" style="gap:6px"><span class="eyebrow">Information</span><h1 style="font-size:34px">${t}</h1><div class="note w" style="margin-top:14px">Texte provisoire : la version définitive doit être validée par un avocat.</div>${secs.map(([h,p])=>`<h2>${h}</h2><p>${p}</p>`).join('')}</div></section>`)}
+const vCgu=()=>legal('Conditions générales d\'utilisation',[
+ ['Objet','BUILDSEN met en relation des particuliers et des professionnels pour des prestations de conception et d\'études en bâtiment. BUILDSEN n\'exécute pas les prestations, n\'en fixe pas le prix et n\'est pas partie au contrat.'],
+ ['Demandes','Le dépôt d\'une demande est gratuit. Le numéro du particulier est vérifié par SMS et chaque demande est relue avant publication. Le budget est obligatoire et indicatif.'],
+ ['Mise en contact','Les professionnels vérifiés écrivent au client dans la messagerie BUILDSEN, '+MAX_PROS+' au maximum par demande. Le client choisit avec qui partager son WhatsApp.'],
+ ['Relation entre le client et le professionnel','Le travail attendu, le prix, le délai et le paiement sont convenus directement entre eux. BUILDSEN ne garantit pas la bonne fin des prestations et ne répond pas des litiges entre utilisateurs.'],
+ ...(PRICING?[['Formules des professionnels','Gratuit : 3 contacts par mois, nouvelles demandes visibles après 48 h, gros budgets non visibles. Pro : '+fcfa(PLANS.PRO.price)+' par mois, 15 contacts. Premium : '+fcfa(PLANS.PREMIUM.price)+' par mois, contacts illimités et profil mis en avant. Un contact correspond à l\'ouverture d\'une conversation avec un client, décompté même si le client ne répond pas. Paiement par Wave ou Orange Money.']]:[]),
+ ['Vérification et modération','Le badge « vérifié » est gratuit : il signifie que les justificatifs ont été examinés et ne dépend pas de la formule. BUILDSEN peut retirer un contenu ou suspendre un compte en cas d\'abus.']]);
+const vMentions=()=>legal('Mentions légales',[['Éditeur','À compléter après l\'immatriculation.'],['Hébergement','Vercel Inc. (États-Unis).'],['Rôle de BUILDSEN','BUILDSEN met en relation des particuliers et des professionnels du bâtiment. Il n\'encaisse pas le paiement des prestations et n\'est pas partie au contrat.']]);
+const vPrivacy=()=>legal('Politique de confidentialité',[['Données collectées','Identité, téléphone vérifié par SMS, demandes, messages échangés dans la messagerie, justificatifs des professionnels.'],['Messagerie','Les messages sont conservés pour la sécurité des échanges et l\'examen des signalements. Ils ne sont lus par l\'équipe qu\'en cas de signalement.'],['Partage des coordonnées','Le numéro d\'un particulier n\'est partagé qu\'avec les professionnels qu\'il choisit, depuis la messagerie.'],['Vos droits','Accès, rectification et suppression, sous le contrôle de la CDP.']]);
+function vHelp(){
+  const Q=[['Le dépôt d\'une demande est-il payant ?','Non, c\'est gratuit pour les particuliers.'],['Pourquoi dois-je indiquer un budget ?','Il permet aux professionnels de savoir si votre demande leur correspond. Le prix final se fixe directement avec le professionnel choisi.'],['Combien de professionnels peuvent me contacter ?','Au maximum '+MAX_PROS+' par demande. Ils vous écrivent dans la messagerie : vous répondez à qui vous voulez.'],['Mon numéro est-il protégé ?','Oui. Il n\'est partagé qu\'avec les professionnels que vous choisissez, grâce au bouton « Partager mon WhatsApp ».'],['Comment payer le professionnel ?','Directement, selon ce que vous convenez ensemble. Ne versez jamais la totalité d\'avance.']];
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:20px;max-width:820px"><span class="eyebrow">Centre d'aide</span><h1 style="font-size:34px">Questions fréquentes</h1><div class="list">${Q.map(([q,a])=>`<details class="li" style="display:block"><summary style="cursor:pointer;font-weight:600">${q}</summary><p class="muted" style="margin-top:8px">${a}</p></details>`).join('')}</div></div></section>`);
+}
+function vContact(){
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:20px;max-width:640px"><span class="eyebrow">Contact</span><h1 style="font-size:34px">Nous écrire</h1>
+   <form class="card stack" data-form="contactus" novalidate><label class="f">Nom<input class="inp" id="cu-n"></label><label class="f">E-mail ou téléphone<input class="inp" id="cu-e"></label><label class="f">Message<textarea class="inp" id="cu-m"></textarea></label><p class="err-t" id="cu-err" hidden></p><button class="btn p" type="submit" style="align-self:flex-start">Envoyer</button></form></div></section>`);
+}
+
+/* ============ Demandes publiques ============ */
+const HOME_REQS=[
+ {i:'OS',n:'Ousmane S.',w:'il y a 12 min',c:'plans',t:'Plans villa R+1, 4 chambres',l:'Keur Massar',q:0,vues:18,type:'Maison individuelle',phase:'Terrain acheté, travaux non commencés',terrain:'Titre foncier',surface:'200',niveaux:'R+1',pieces:'6',delai:'Sous 1 mois',budget:'600 000 FCFA',dims:'Terrain 10 m × 20 m, entrée côté nord',docs:['plan-cadastral.pdf','photos-terrain.jpg'],desc:"Je souhaite faire concevoir une villa R+1 : 4 chambres dont une suite parentale, un salon, une cuisine fermée et une terrasse à l'étage."},
+ {i:'AB',n:'Aminata B.',w:'il y a 1 h',c:'etudes',t:'Dimensionnement poteaux et poutres R+2',l:'Rufisque',q:2,vues:41,type:'Maison individuelle',phase:'Terrain acheté, travaux non commencés',terrain:'Délibération',surface:'120',niveaux:'R+2',pieces:'8',delai:'Sous 2 semaines',budget:'400 000 FCFA',dims:"Emprise 12 m × 10 m, portées jusqu'à 5 m",docs:['plans-maison.pdf'],desc:"Les plans sont faits. J'ai besoin du dimensionnement des poteaux et des poutres, avec la note de calcul."},
+ {i:'MN',n:'Mamadou N.',w:'il y a 3 h',c:'metres',t:'DQE immeuble R+3',l:'Ouakam',q:3,vues:67,type:"Immeuble d'habitation",phase:'Terrain acheté, travaux non commencés',terrain:'Titre foncier',surface:'520',niveaux:'R+3',pieces:'—',delai:'Sous 1 mois',budget:'1 500 000 FCFA',dims:'Environ 520 m² de plancher sur 4 niveaux',docs:['plans-r3.dwg','coupe.pdf'],desc:"Je cherche un devis quantitatif et estimatif complet, décomposé par lot, pour consulter des entreprises."},
+ {i:'FK',n:'Fatou K.',w:'hier',c:'dao',t:'Mise au propre de plans papier',l:'Pikine',q:1,vues:23,type:'Maison individuelle',phase:'Bâtiment existant à modifier',terrain:'Bail',surface:'',niveaux:'R+2',pieces:'9',delai:'Dès que possible',budget:'150 000 FCFA',dims:'Plans papier de 3 niveaux à numériser',docs:['scan-plans.pdf'],desc:"J'ai d'anciens plans papier de ma maison. Je voudrais les faire redessiner sur AutoCAD."},
+ {i:'ID',n:'Ibrahima D.',w:'hier',c:'etudes',t:"Plans de ferraillage d'une dalle",l:'Thiès',q:5,vues:88,type:'Extension ou surélévation',phase:'Travaux déjà commencés',terrain:'Titre foncier',surface:'30',niveaux:'R+1',pieces:'—',delai:'Sous 2 semaines',budget:'250 000 FCFA',dims:'Dalle pleine 6 m × 5 m',docs:['plan-dalle.pdf'],desc:"Surélévation d'une maison : j'ai besoin du plan de ferraillage et du plan de coffrage de la dalle."},
+ {i:'CN',n:'Coumba N.',w:'il y a 3 jours',c:'plans',t:'Plans immeuble R+4 avec commerces',l:'Parcelles Assainies',q:4,vues:112,type:"Immeuble d'habitation",phase:'Terrain acheté, travaux non commencés',terrain:'Titre foncier',surface:'300',niveaux:'R+4 ou plus',pieces:'—',delai:'Sous 2 mois',budget:'2 000 000 FCFA',dims:"Terrain d'angle 15 m × 20 m",docs:['titre-foncier.pdf'],desc:"Immeuble de rapport : commerces au rez-de-chaussée et appartements F3 aux étages."}
+];
+const reqById=i=>HOME_REQS[+i]||HOME_REQS[0];
+function vDemandes(){
+  const fl=S.dFilter,q=fl.q.trim().toLowerCase();
+  const list=HOME_REQS.map((r,idx)=>({r,idx})).filter(({r})=>(fl.cat==='all'||r.c===fl.cat)&&(!fl.commune||r.l===fl.commune)&&(!q||(r.t+' '+r.desc+' '+r.l).toLowerCase().includes(q)));
+  const communes=[...new Set(HOME_REQS.map(r=>r.l))].sort();
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:22px">
+   <div class="stack"><span class="eyebrow">Pour les professionnels</span><h1 style="font-size:34px">Demandes en cours</h1><p class="lead">Consultez les projets publiés par des particuliers et écrivez-leur directement. ${F()}</p></div>
+   <div class="card stack" style="gap:14px"><label class="f">Rechercher<input class="inp" id="df-q" data-df="q" value="${esc(fl.q)}" placeholder="Ex. : R+1, ferraillage, DQE…"></label>
+    <div class="row chips" style="gap:8px"><button class="btn sm ${fl.cat==='all'?'d':'g'}" data-act="dCat" data-arg="all">Toutes</button>${CATS.map(c=>`<button class="btn sm ${fl.cat===c.id?'d':'g'}" data-act="dCat" data-arg="${c.id}">${c.name}</button>`).join('')}</div>
+    <label class="f" style="max-width:320px">Commune<select class="inp" data-df="commune"><option value="">Toutes</option>${communes.map(o=>`<option ${fl.commune===o?'selected':''}>${esc(o)}</option>`).join('')}</select></label></div>
+   <p class="small muted">${list.length} demande${list.length>1?'s':''} · ${MAX_PROS} professionnels au maximum par demande</p>
+   <div class="g2">${list.map(({r,idx})=>`<button class="card stack req-card" data-go="demande" data-arg="${idx}">
+     <div class="row between" style="gap:8px"><span class="small muted">${esc(r.l)} · ${r.w}</span>${quotePill(r)}</div><h3>${esc(r.t)}</h3>
+     <div class="row" style="gap:6px">${pill(cat(r.c).name,'ok')}${r.niveaux?pill(r.niveaux):''}${pill(r.terrain)}${isBig(r.budget)?pill('Gros budget','warn'):''}</div>
+     <p class="small" style="color:var(--slate)">${esc(r.desc.length>110?r.desc.slice(0,107)+'…':r.desc)}</p>
+     <div class="row between" style="margin-top:auto"><span class="small muted">${r.vues} vues</span><b class="small" style="color:var(--g1)">${esc(r.budget)}</b></div>
+     <span class="btn ${r.q>=MAX_PROS?'g':'p'} sm" style="align-self:stretch">${r.q>=MAX_PROS?'Complète':'Écrire au client'}</span></button>`).join('')}</div>
+  </div></section>`);
+}
+function vDemande(){
+  const r=reqById(S.arg),c=cat(r.c),full=r.q>=MAX_PROS;
+  const info=[['Type de bâtiment',r.type+(r.niveaux?' · '+r.niveaux:'')],['Nombre de pièces',r.pieces||'Non indiqué'],['Statut du terrain',r.terrain],['Surface',r.surface?r.surface+' m²':'Non indiquée'],['Caractéristiques',r.dims],['Phase',r.phase],['Localisation',r.l+', région de Dakar'],['Délai souhaité',r.delai],['Publiée',r.w+' par '+r.n]];
+  return pub(`<section class="sec"><div class="wrap stack" style="gap:22px">
+   <button class="link" data-go="demandes" style="align-self:flex-start">← Toutes les demandes</button>
+   <div class="stack" style="gap:10px"><div class="row" style="gap:8px">${pill(c.name,'ok')}${pill('Numéro vérifié par SMS','ok')}${F()}</div><h1 style="font-size:34px">${esc(r.t)}</h1><p class="muted">Demande d'un particulier · ${esc(r.l)} · ${r.vues} vues</p></div>
+   <div class="ord-g"><div class="stack" style="gap:18px">
+     <div class="card stack"><h3>Besoin</h3><p style="color:var(--slate);max-width:65ch">${esc(r.desc)}</p></div>
+     <div class="card"><div class="recap two">${info.map(([k,v])=>`<div class="k">${k}</div><div>${esc(v)}</div>`).join('')}</div></div>
+    </div>
+    <div class="stack" style="gap:18px">
+     <div class="card stack" style="gap:10px"><h3>Budget du client</h3><span class="amt num">${esc(r.budget)}</span>${isBig(r.budget)?pill('Gros budget : réservé aux abonnés Pro et Premium','warn'):''}
+      <div class="places">${Array.from({length:MAX_PROS},(_,i)=>`<i class="${i<r.q?'on':''}"></i>`).join('')}</div><span class="small muted">${r.q}/${MAX_PROS} professionnels ont déjà écrit au client</span></div>
+     <div class="card stack" style="gap:12px"><h3>Vous êtes professionnel ?</h3>
+      <p class="muted small">Écrivez au client dans la messagerie BUILDSEN. S'il souhaite continuer avec vous, il partagera son WhatsApp.</p>
+      ${c.regulated?`<div class="note">Demande réservée aux ingénieurs en génie civil et aux entreprises vérifiés.</div>`:''}
+      ${full?`<div class="note w">Demande complète.</div>`:`<button class="btn p" data-go="signup" data-arg="pro">Écrire au client</button><button class="btn g" data-go="login">J'ai déjà un compte</button>`}
+     </div></div></div>
+  </div></section>`);
+}
+
+/* ============ Routeur ============ */
+const V={'p-notifs':()=>vNotifs('pro'),'c-notifs':()=>vNotifs('client'),'espace-pro':vEspacePro,'p-home':vPHome,demandes:vDemandes,demande:vDemande,home:vHome,prestations:vPrestations,fonctionnement:vFonct,pros:vPros,'pro-profile':vProProfile,signup:vSignup,login:vLogin,'new-request':vNewRequest,cgu:vCgu,privacy:vPrivacy,mentions:vMentions,help:vHelp,contact:vContact,
+ 'c-dash':vCDash,'c-requests':vCRequests,'c-messages':vCMessages,'c-profile':vCProfile,
+ 'p-requests':vPRequests,'p-request':vPRequest,'p-messages':vPMessages,'p-plan':vPPlan,'p-reviews':vPReviews,'p-verif':vVerif,'p-profile':vPProfile,a:vAdmin};
+const JUMP=[['Site public',[['home','Accueil'],['demandes','Demandes en cours'],['demande','Détail d\'une demande'],['prestations','Prestations'],['fonctionnement','Fonctionnement'],['pros','Professionnels'],['pro-profile','Fiche professionnel'],['signup','Inscription (avec SMS)'],['login','Connexion'],['new-request','Dépôt de demande'],['help','Centre d\'aide'],['cgu','Conditions générales']]],
+ ['Particulier',[['c-dash','Accueil de l\'espace particulier'],['c-requests','Mes demandes'],['c-messages','Messagerie'],['c-notifs','Notifications']]],
+ ['Professionnel',[['espace-pro','Accueil public des pros'],['p-home','Accueil de l\'espace pro'],['p-requests','Demandes disponibles'],['p-request','Écrire à un client'],['p-messages','Messagerie'],['p-plan','Mon abonnement'],['p-notifs','Notifications'],['p-verif','Vérification']]],
+ ['Administrateur',[['a','Administration']]]];
+
+function render(){
+  $('#app').innerHTML=(V[S.view]||vHome)();
+  $('#frame').classList.toggle('mobile',S.device==='mobile');
+  $('#dv-d').classList.toggle('on',S.device==='desktop');$('#dv-m').classList.toggle('on',S.device==='mobile');
+  document.querySelectorAll('[data-space]').forEach(b=>{const sp=b.dataset.space,v=S.view;b.classList.toggle('on',sp==='a'?v==='a':sp==='c-dash'?/^c-/.test(v):sp==='espace-pro'?(v.startsWith('p-')||v==='espace-pro'):!/^(c-|p-|a$|espace-pro$)/.test(v))});
+  $('#jump').value=S.view;
+  const m=$('.msgs');if(m)m.scrollTop=m.scrollHeight;
+}
+const needs=v=>/^(c-|new-request$)/.test(v)?'client':/^p-/.test(v)?'pro':null;
+function afterLogin(def){const n=S.next;S.next=null;if(n&&needs(n.v)===S.user)go(n.v,n.arg);else go(def)}
+const loginNote=()=>S.next?(needs(S.next.v)==='pro'?'Connectez-vous à votre espace professionnel pour continuer.':'Connectez-vous ou créez un compte particulier pour continuer.'):'';
+function go(v,arg){
+  const need=needs(v);if(need&&S.user!==need){S.next={v,arg:arg??null};v='login';arg=null}
+  if(v==='new-request'&&S.view!=='new-request'&&S.wiz===6)S.wiz=1;
+  S.view=v;S.arg=arg??null;S.menu=false;S.errs={};render();window.scrollTo({top:0});
+}
+
+/* ============ Actions ============ */
+const A={
+ menu(){S.menu=!S.menu;render()},
+ suKind(k){S.suKind=k;render()},
+ readAll(k){NOTIFS[k].forEach(n=>n.read=true);render()},
+ openNotif(a){const [k,i]=a.split('|'),n=NOTIFS[k][+i];n.read=true;go(n.v,n.a)},
+ demoLogin(u){S.user=u;toast('Connexion de démonstration.');afterLogin(u==='pro'?'p-home':'c-dash')},
+ logout(){S.user=null;go('home')},
+ dCat(c){S.dFilter.cat=c;render()},
+ startCat(a){S.draft.cat=a;S.draft.sub='';S.wiz=1;go('new-request')},
+ pickCat(a){if(S.draft.cat!==a)S.draft.sub='';S.draft.cat=a;S.errs={};render()},
+ wizTo(a){S.wiz=+a;S.errs={};render()},
+ wizBack(){S.wiz--;S.errs={};render()},
+ wizNext(){
+  const d=S.draft,e={};
+  if(S.wiz===1){if(!d.cat)e.cat='Choisissez une prestation.';else if(!d.sub)e.sub='Précisez la prestation.'}
+  if(S.wiz===2){if(!d.type)e.type='Choisissez le type de bâtiment.';if(d.desc.trim().length<20)e.desc='Décrivez votre besoin (20 caractères minimum).';if(!d.commune)e.commune='Indiquez la commune.';if(!d.terrain)e.terrain='Indiquez le statut du terrain (ou « Je ne sais pas »).';if(!d.phase)e.phase='Indiquez où en est votre projet.';if(!d.delai)e.delai='Choisissez un délai.'}
+  if(S.wiz===3){const m=checkBudget(d.budget);if(m)e.budget=m;else d.budget=d.budget.replace(/\D/g,'')}
+  S.errs=e;if(Object.keys(e).length){render();return}
+  S.wiz++;render();window.scrollTo({top:0});
+ },
+ wizSubmit(){
+  if(!$('#rq-ok').checked){S.errs={ok:'Cochez la confirmation pour envoyer votre demande.'};render();return}
+  const d=S.draft,ref='BS-2026-'+String(Math.floor(10000+Math.random()*89999));
+  S.requests.unshift({ref,cat:d.cat,sub:d.sub,type:d.type,title:d.sub+' — '+d.type,commune:d.commune,budget:d.budget,delai:d.delai,terrain:d.terrain,pieces:d.pieces,status:'En attente de vérification',desc:d.desc});
+  S.draft=newDraft();S.wiz=6;render();
+ },
+ rmFile(i){S.draft.files.splice(+i,1);render()},
+ smsResend(){toast('Nouveau code envoyé par SMS (simulation).')},
+ smsBack(){S.sms.step=0;render()},
+ openConv(id){S.openConv=id;const t=document.activeElement&&document.activeElement.closest('[data-go2]');go(t?t.dataset.go2:S.view)},
+ share(id){const c=S.convs.find(x=>x.id===id);c.shared=true;toast('Votre WhatsApp est partagé avec '+first(pro(c.pro))+'. Vous pouvez continuer sur WhatsApp.');render()},
+ wa(){toast('Ouverture de WhatsApp : simulation dans la maquette.')},
+ reportConv(){toast('Conversation signalée à l\'équipe BUILDSEN.')},
+ report(){toast('Signalement transmis à l\'équipe BUILDSEN.')},
+ rateFor(k){S.rateFor=S.rateFor===k?null:k;render()},
+ star(a){const [k,n]=a.split('|');S.rating[k]=+n;render()},
+ closeReq(ref){const r=S.requests.find(x=>x.ref===ref);r.status='Clôturée';toast('Demande clôturée.');render()},
+ demoPlan(k){S.plan.key=k;S.plan.used=k==='FREE'?1:4;render()},
+ buyPlan(k){toast('Paiement de la formule '+PLANS[k].name+' par Wave ou Orange Money : simulation.')},
+ viewDoc(){toast('Consultation enregistrée (simulation).')},
+ reportReview(){toast('Avis signalé à la modération.')},
+ vStatut(k){S.verif.statut=k;render()},
+ vNext(){S.verif.step=2;render()},
+ vBack(){S.verif.step=1;render()},
+ verifReset(){S.verif={statut:null,step:1,files:{},submitted:false};render()},
+ adminDemo(){S.adminAuthed=true;render()},
+ adminOut(){S.adminAuthed=false;go('home')},
+ atab(k){S.adminTab=k;render()},
+ decide(id){const d=S.dossiers.find(x=>x.id===id);d.state='verified';audit('Dossier '+id+' accepté · '+LAUNCH.months+' mois de formule Pro offerts');toast('Dossier accepté. Offre de lancement appliquée.');render()},
+ suspend(i){const u=S.users[+i];u.s=u.s==='Suspendu'?'Actif':'Suspendu';audit((u.s==='Suspendu'?'Suspension':'Réactivation')+' du compte '+u.n);render()},
+ modReq(a){const [i,s]=a.split('|');S.adminReqs[+i].s=s;audit('Demande '+S.adminReqs[+i].ref+' : '+s.toLowerCase());render()},
+ modRev(a){const [i,s]=a.split('|');S.reviews[+i].s=s;render()},
+ modRep(a){const [i,s]=a.split('|');S.reports[+i].s=s;audit('Signalement '+S.reports[+i].id+' : '+s.toLowerCase());render()}
+};
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-go],[data-act],[data-space],[data-dev]');if(!t)return;
+  if(t.dataset.dev){S.device=t.dataset.dev;render();return}
+  if(t.dataset.space){const sp=t.dataset.space;if(sp==='c-dash')S.user='client';if(sp==='espace-pro')S.user=S.user||null;go(sp);return}
+  if(t.dataset.act&&A[t.dataset.act]){e.preventDefault();if(t.dataset.act==='openConv'){S.openConv=t.dataset.arg;if(t.dataset.go2){go(t.dataset.go2);return}render();return}A[t.dataset.act](t.dataset.arg);return}
+  if(t.dataset.go){e.preventDefault();go(t.dataset.go,t.dataset.arg)}
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.df==='q'){S.dFilter.q=t.value;clearTimeout(A.dT);A.dT=setTimeout(()=>{render();const i=$('#df-q');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},250)}
+  if(t.dataset.bind){S.draft[t.dataset.bind]=t.value;if(t.id==='rq-budget'){const m=checkBudget(t.value),el=$('#budget-err');el.textContent=m;el.hidden=!m}}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='jump'){go(t.value);return}
+  if(t.id==='ad-role'){S.adminRole=t.value;render();return}
+  if(t.dataset.bind&&t.tagName==='SELECT'){S.draft[t.dataset.bind]=t.value;delete S.errs[t.dataset.bind]}
+  if(t.dataset.df&&t.dataset.df!=='q'){S.dFilter[t.dataset.df]=t.value;render()}
+  if(t.id==='rq-files'){[...t.files].forEach(f=>S.draft.files.push({name:f.name,size:f.size}));render()}
+  if(t.dataset.vdoc&&t.files[0]){S.verif.files[t.dataset.vdoc]=t.files[0].name;render()}
+});
+function showErr(id,m){const el=$(id);el.textContent=m;el.hidden=!m;return !!m}
+document.addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target,k=f.dataset.form;
+  if(k==='signup'){const tel=$('#su-tel').value.trim();
+    if(showErr('#su-err',$('#su-co')&&!$('#su-co').value.trim()?'Indiquez le nom de votre entreprise.':!$('#su-fn').value.trim()||!$('#su-ln').value.trim()?'Renseignez votre prénom et votre nom.':!/^(\+221)?\s?7[05678](\s?\d){7}$/.test(tel)?'Numéro sénégalais attendu, par exemple 77 123 45 67.':$('#su-pw').value.length<12?'Le mot de passe doit contenir au moins 12 caractères.':!$('#su-cgu').checked?'Acceptez les conditions pour créer votre compte.':''))return;
+    S.sms={step:1,tel,role:f.dataset.arg};toast('Code envoyé par SMS (simulation).');render()}
+  if(k==='sms'){if(showErr('#sms-err',!/^\d{6}$/.test($('#sms-code').value)?'Saisissez le code à 6 chiffres reçu par SMS.':''))return;S.user=S.sms.role==='pro'?'pro':'client';if(S.user==='pro'&&S.suKind==='be')S.verif={statut:'be',step:1,files:{},submitted:false};S.sms={step:0};toast('Numéro vérifié. Compte créé (simulation).');afterLogin(S.user==='pro'?'p-verif':'c-dash')}
+  if(k==='login'){if(showErr('#li-err',!$('#li-id').value.trim()||!$('#li-pw').value?'Renseignez votre identifiant et votre mot de passe.':''))return;S.user=S.next&&needs(S.next.v)==='pro'?'pro':'client';afterLogin(S.user==='pro'?'p-home':'c-dash')}
+  if(k==='contactus'){if(showErr('#cu-err',!$('#cu-n').value.trim()||$('#cu-m').value.trim().length<10?'Renseignez votre nom et votre message.':''))return;toast('Message non envoyé : formulaire de démonstration.');f.reset()}
+  if(k==='saveprof')toast('Modifications enregistrées (simulation).');
+  if(k==='contact'){const t=$('#ct-first').value.trim();
+    if(showErr('#ct-err',t.length<20?'Écrivez un premier message (20 caractères minimum).':PRICING&&quotaLeft()<=0?'Vous avez utilisé tous vos contacts ce mois-ci.':''))return;
+    const r=PREQS.find(x=>x.id===f.dataset.arg);r.q++;S.plan.used++;
+    const id='c'+(S.convs.length+1);S.convs.push(mkConv(id,ME,'BS-2026-04172',[{me:false,t,w:'à l\'instant'}]));S.openConv=id;
+    toast('Conversation ouverte. 1 contact décompté (simulation).');go('p-messages')}
+  if(k==='msg'){const t=$('#msg-t').value.trim(),c=S.convs.find(x=>x.id===f.dataset.arg),asPro=S.view==='p-messages';
+    if(showErr('#msg-err',!t?'Écrivez un message.':''))return;
+    c.msgs.push({me:!asPro,t,w:'à l\'instant'});render()}
+  if(k==='rate'){const key=f.dataset.arg;if(showErr('#rv-err',!S.rating[key]?'Choisissez une note.':''))return;S.rating[key+'-done']=S.rating[key];toast('Merci ! Votre avis sera publié après modération.');render()}
+  if(k==='verif'){if(showErr('#vf-err',!$('#vf-ok').checked?'Cochez l\'attestation pour soumettre.':''))return;S.verif.submitted=true;render()}
+  if(k==='adminlogin'){if(showErr('#ad-err',!/^\d{6}$/.test($('#ad-otp').value)?'Saisissez le code à 6 chiffres.':''))return;S.adminAuthed=true;render()}
+});
+
+$('#jump').innerHTML=JUMP.map(([g,l])=>`<optgroup label="${g}">${l.map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</optgroup>`).join('');
+render();
+</script>
+
+<div id="demo-pop" role="status" aria-live="polite" style="position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:200;max-width:calc(100% - 32px);width:440px;background:#075B3C;color:#fff;font:500 14px/1.45 Figtree,system-ui,sans-serif;padding:14px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:none"><b style="display:block;font-size:15px;margin-bottom:4px">Vous êtes dans l'aperçu (démo)</b>Les demandes et les profils sont des exemples, et rien de ce que vous faites ici n'est enregistré. <a href="/inscription" style="color:#fff;font-weight:800">Créer mon vrai compte pro →</a></div>
+<script>
+(function(){var pop=document.getElementById("demo-pop"),t;
+function show(){pop.style.display="block";clearTimeout(t);t=setTimeout(function(){pop.style.display="none"},4500)}
+document.addEventListener("click",function(e){var el=e.target.closest("button,a,input,select,label,[data-go],[data-act]");if(!el||el.closest("#demo-pop")||el.hasAttribute("data-real"))return;show()},true);
+document.addEventListener("submit",show,true);})();
+</script>
+<a href="/" data-real style="position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:100;background:#000;color:#fff;font:700 14px/1 Figtree,system-ui,sans-serif;padding:12px 16px;border-radius:99px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.2)">Aperçu · Retour au vrai site</a>
+</body>
+</html>

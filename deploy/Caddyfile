@@ -1,0 +1,16 @@
+# HTTPS automatique (certificat Let's Encrypt) pour le domaine défini dans .env.prod
+{$DOMAIN} {
+	encode zstd gzip
+	# Fichiers envoyés : 10 Mo maximum (justificatifs, portfolios), marge pour l'enveloppe de la requête
+	request_body {
+		max_size 12MB
+	}
+	# L'API n'est jamais exposée directement : tout passe par le site, qui relaie /api vers le backend
+	reverse_proxy frontend:3000
+	header -Server
+}
+
+# www vers le domaine principal
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}

@@ -1,0 +1,730 @@
+/* =====================================================================
+   Design BUILDSEN (repris du dossier « buildsen ») : vert et blanc,
+   police système, header logo / rubriques / « Se connecter », grande photo
+   d'accueil avec titre animé, sections vert / blanc, footer vert, modal
+   de connexion et d'inscription.
+   Chargé après globals.css : les couleurs ci-dessous s'appliquent aussi
+   aux pages existantes (espaces particulier, pro et admin).
+   ===================================================================== */
+:root {
+  --g1: #166534;      /* vert foncé : liens, textes, bordures actives */
+  --g2: #15803d;      /* vert des boutons (identique au bouton « Se connecter ») */
+  --g3: #22a352;
+  --g4: #4ade80;
+  --tint: #f0fdf4;    /* vert très pâle : sélection, fonds alternés */
+  --tint2: #dcfce7;
+  --mist: #f0fdf4;
+  --ink: #1c1917;
+  --slate: #44403c;
+  --stone: #57534e;
+  --line: #e7e5e4;
+  --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-stack: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+body { font-family: var(--font-stack); background: #fafaf9; -webkit-font-smoothing: antialiased }
+h1, h2, h3 { font-family: var(--font-stack); letter-spacing: -0.02em }
+.btn { border-radius: 10px }
+.btn.p { background: var(--g2) } .btn.p:hover { background: var(--g1) }
+html { scroll-padding-top: 4.5rem }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+
+/* ---------- Logo (identique dans le header et le footer) ---------- */
+.bs-logo { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--g1); font-weight: 800; font-size: 19px; letter-spacing: .04em; white-space: nowrap }
+.bs-logo-ico { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 9px; background: var(--g2); color: #fff; flex: none }
+.bs-footer .bs-logo { color: #fff }
+.bs-footer .bs-logo-ico { background: rgba(255,255,255,.15) }
+
+/* ---------- Header ---------- */
+.bs-hdr { position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line) }
+.bs-hdr-in { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 16px }
+.bs-hdr-act { display: flex; align-items: center; gap: 8px; margin-left: auto }
+.bs-nav { display: none }
+.bs-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px }
+.bs-nav a { display: flex; align-items: center; min-height: 44px; padding: 9px 12px; border-radius: 9px; color: rgba(28,25,23,.8); font-weight: 500; text-decoration: none; font-size: 15px }
+.bs-nav a:hover, .bs-nav a[aria-current="true"] { background: var(--tint); color: var(--g1) }
+.bs-nav.open { display: block; position: absolute; left: 0; right: 0; top: 64px; background: #fff; border-bottom: 1px solid var(--line); padding: 8px 16px 14px; box-shadow: 0 10px 20px rgba(0,0,0,.06) }
+.bs-burger { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: none; border-radius: 9px; cursor: pointer; color: var(--ink) }
+.bs-burger:hover { background: #f5f5f4 }
+.bs-hdr .btn { min-height: 38px; padding: 7px 14px; font-size: 14px }
+@media (min-width: 640px) { .bs-hdr-in { padding: 0 24px } }
+@media (min-width: 1024px) {
+  .bs-hdr-in { display: grid; grid-template-columns: 1fr auto 1fr; padding: 0 32px }
+  .bs-hdr-in > .bs-logo { justify-self: start }
+  .bs-nav, .bs-nav.open { display: block; position: static; padding: 0; border: 0; box-shadow: none; background: none }
+  .bs-nav ul { flex-direction: row; align-items: center }
+  .bs-nav a { font-size: 14px }
+  .bs-hdr-act { justify-self: end; margin-left: 0 }
+  .bs-burger { display: none }
+}
+
+/* ---------- Footer (vert du bouton « Se connecter ») ---------- */
+.bs-footer { background: var(--g2); color: rgba(255,255,255,.85); font-size: 14px }
+.bs-footer-in { max-width: 1152px; margin: 0 auto; padding: 26px 16px; display: flex; flex-direction: column; gap: 14px }
+.bs-footer p { margin: 0 }
+.bs-footer .bs-sub { color: rgba(255,255,255,.7); margin-top: 4px }
+.bs-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px }
+.bs-footer a { color: rgba(255,255,255,.88); text-decoration: underline; text-underline-offset: 3px }
+.bs-footer ul a { display: inline-flex; align-items: center; min-height: 44px }
+.bs-footer a:hover { color: #fff; text-decoration: underline }
+.bs-footer a.bs-strong { color: #fff; font-weight: 700 }
+@media (min-width: 768px) { .bs-footer-in { flex-direction: row; align-items: center; justify-content: space-between; padding: 30px 24px } }
+@media (max-width: 639px) { .bs-footer .bs-hide-m { display: none } }
+
+/* ---------- Accueil : grande photo et titre animé ---------- */
+.bs-hero { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; min-height: 78svh; background: #292524; color: #fff }
+.bs-hero-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; animation: bsZoom 12s ease-out both }
+.bs-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0,0,0,.35) radial-gradient(ellipse at center, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 70%, transparent 100%) }
+.bs-hero-in { width: 100%; max-width: 1152px; margin: 0 auto; padding: 56px 16px; text-align: center; text-shadow: 0 2px 12px rgba(0,0,0,.45) }
+.bs-hero-box { max-width: 48rem; margin: 0 auto }
+.bs-badge { display: none; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); backdrop-filter: blur(6px); border-radius: 99px; padding: 5px 12px; font-size: 13px; font-weight: 600; color: var(--tint2) }
+.bs-badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--g4); animation: bsPulse 2s infinite }
+.bs-hero h1 { font-size: 36px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; perspective: 600px; text-wrap: wrap }
+.bs-hero h1 .bs-l { display: block }
+.bs-word { display: inline-block; animation: bsWordIn .6s cubic-bezier(.22,1,.36,1) both }
+.bs-hl { display: block; color: #86efac; margin-top: 4px }
+.bs-hl span { padding-bottom: 4px; -webkit-box-decoration-break: clone; box-decoration-break: clone; background: linear-gradient(var(--g4), var(--g4)) no-repeat left bottom / 0% .12em; animation: bsUnderline .9s 1.1s cubic-bezier(.22,1,.36,1) both }
+.bs-hero p.bs-lead { margin: 22px auto 0; max-width: 36rem; color: rgba(255,255,255,.88); font-size: 16px; line-height: 1.6 }
+.bs-cta { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; justify-content: center }
+.bs-cta .btn { min-height: 52px; font-size: 17px; padding: 12px 24px }
+.bs-btn-hero { background: var(--g3); color: #fff; box-shadow: 0 10px 25px rgba(5,46,22,.4) }
+.bs-btn-hero:hover { background: #2fb862 }
+.bs-btn-ghost { border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.1); color: #fff; backdrop-filter: blur(6px) }
+.bs-btn-ghost:hover { background: rgba(255,255,255,.2) }
+.bs-stats { display: none; margin: 40px auto 0; max-width: 36rem; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; border-top: 1px solid rgba(255,255,255,.15); padding-top: 24px }
+.bs-stats b { display: block; font-size: 28px; font-weight: 800 }
+.bs-stats span { display: block; font-size: 14px; color: rgba(255,255,255,.72); margin-top: 4px }
+.bs-fade { animation: bsFadeUp .8s cubic-bezier(.22,1,.36,1) both }
+.bs-short { display: inline } .bs-long { display: none }
+@media (min-width: 640px) {
+  .bs-hero { min-height: calc(100svh - 64px) }
+  .bs-hero-in { padding: 80px 24px }
+  .bs-badge { display: inline-flex }
+  .bs-hero h1 { font-size: 48px; margin-top: 20px }
+  .bs-hero p.bs-lead { font-size: 18px }
+  .bs-cta { flex-direction: row }
+  .bs-stats { display: grid }
+  .bs-short { display: none } .bs-long { display: inline }
+}
+@media (min-width: 1024px) { .bs-hero h1 { font-size: 60px } }
+
+/* ---------- Sections de l'accueil ---------- */
+.bs-sec { padding: 48px 16px }
+.bs-sec.bs-tint { background: var(--tint) }
+.bs-sec.bs-green { background: var(--g2); color: #fff }
+.bs-sec.bs-white { background: #fff }
+.bs-in { max-width: 1152px; margin: 0 auto }
+.bs-title { max-width: 42rem; margin: 0 auto 24px; text-align: center }
+.bs-kicker { display: none; color: var(--g2); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px }
+.bs-title h2 { font-size: 24px; font-weight: 800 }
+.bs-title p { display: none; margin-top: 12px; color: var(--stone); font-size: 18px }
+.bs-green .bs-title h2 { color: #fff }
+@media (min-width: 640px) {
+  .bs-sec { padding: 88px 24px }
+  .bs-title { margin-bottom: 40px }
+  .bs-kicker, .bs-title p { display: block }
+  .bs-title h2 { font-size: 36px }
+}
+
+/* Étapes « Comment ça marche » */
+.bs-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px }
+.bs-step { position: relative; display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--tint2); border-radius: 16px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04); transition: transform .2s, box-shadow .2s, border-color .2s; height: 100% }
+.bs-step:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,.08); border-color: #86efac }
+.bs-step .bs-num { display: none; position: absolute; top: 14px; right: 20px; font-size: 48px; font-weight: 900; color: var(--tint2); line-height: 1 }
+.bs-ico { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--tint); color: var(--g2); flex: none; transition: background .2s, color .2s }
+.bs-step:hover .bs-ico { background: var(--g2); color: #fff }
+.bs-step h3 { font-size: 16px; font-weight: 700 }
+.bs-step p { color: var(--stone); font-size: 14px; margin-top: 2px }
+@media (min-width: 640px) {
+  .bs-steps { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px }
+  .bs-step { display: block; padding: 24px }
+  .bs-step .bs-num { display: block }
+  .bs-ico { width: 48px; height: 48px }
+  .bs-step h3 { margin-top: 16px; font-size: 18px; position: relative }
+  .bs-step p { font-size: 15px; margin-top: 4px; position: relative }
+}
+@media (min-width: 1024px) { .bs-steps.bs-3 { grid-template-columns: repeat(3, minmax(0,1fr)) } .bs-steps.bs-4 { grid-template-columns: repeat(4, minmax(0,1fr)) } }
+
+/* Prestations */
+.bs-services { display: grid; gap: 14px }
+.bs-service { display: flex; gap: 16px; background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,.05); outline: 1px solid rgba(0,0,0,.05); height: 100% }
+.bs-service .bs-ico { background: linear-gradient(135deg, var(--g3), var(--g1)); color: #fff; width: 48px; height: 48px }
+.bs-service h3 { font-size: 17px; font-weight: 700 }
+.bs-service p { color: var(--stone); font-size: 14px; margin-top: 4px }
+.bs-service .bs-reg { color: var(--g2); font-weight: 600; font-size: 13px; margin-top: 8px }
+.bs-services-note { margin-top: 18px; text-align: center; color: var(--stone); font-size: 13px }
+@media (min-width: 640px) { .bs-services { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px } }
+
+/* À propos / confiance (section verte) */
+.bs-about { display: grid; gap: 24px; align-items: center }
+.bs-about h2 { font-size: 24px; font-weight: 800; text-align: center }
+.bs-about .bs-about-text { display: none; margin-top: 16px; color: rgba(255,255,255,.88); font-size: 18px }
+.bs-trust { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px }
+.bs-trust li { display: flex; align-items: center; gap: 16px; background: #fff; color: var(--ink); border-radius: 16px; padding: 16px; box-shadow: 0 10px 25px rgba(0,0,0,.1); transition: transform .2s }
+.bs-trust li:hover { transform: translateY(-2px) }
+.bs-trust .bs-ico { background: var(--g2); color: #fff; width: 48px; height: 48px; box-shadow: 0 8px 18px rgba(21,128,61,.3) }
+.bs-trust b { display: block; font-size: 16px }
+.bs-trust span.bs-d { display: none; color: var(--stone); font-size: 14px }
+.bs-warn { margin-top: 18px; color: rgba(255,255,255,.9); font-size: 14px; text-align: center }
+@media (min-width: 640px) {
+  .bs-about h2 { font-size: 36px }
+  .bs-about .bs-about-text { display: block }
+  .bs-trust li { padding: 20px }
+  .bs-trust span.bs-d { display: block }
+}
+@media (min-width: 1024px) { .bs-about { grid-template-columns: 1fr 1fr; gap: 64px } .bs-about h2, .bs-warn { text-align: left } }
+
+/* Questions fréquentes */
+
+/* Appel final */
+.bs-final { max-width: 42rem; margin: 0 auto; text-align: center }
+.bs-final h2 { font-size: 24px; font-weight: 800 }
+.bs-final p { display: none; color: var(--stone); margin-top: 8px }
+.bs-final .btn { margin-top: 24px; min-height: 52px; font-size: 17px; padding: 12px 24px }
+@media (min-width: 640px) { .bs-final h2 { font-size: 30px } .bs-final p { display: block } }
+
+/* Apparition au défilement (sans JavaScript, tout reste visible) */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .bs-reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); transition-delay: var(--reveal-delay, 0ms) }
+  .bs-reveal[data-visible="true"] { opacity: 1; transform: none }
+}
+
+/* ---------- Modal de connexion / inscription ---------- */
+.bs-modal { margin: auto; padding: 0; border: 0; border-radius: 16px; background: #fff; color: var(--ink); width: min(28rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,.25); animation: bsModalIn .25s cubic-bezier(.22,1,.36,1) both }
+.bs-modal.bs-wide { width: min(44rem, calc(100% - 2rem)) }
+.bs-modal::backdrop { background: rgba(0,0,0,.5); backdrop-filter: blur(4px) }
+.bs-modal-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line) }
+.bs-modal-h h2 { font-size: 18px; font-weight: 800 }
+.bs-modal-h p { color: var(--stone); font-size: 14px }
+.bs-modal-b { padding: 20px }
+.bs-close { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 0; border-radius: 9px; background: none; cursor: pointer; color: var(--ink); flex: none }
+.bs-close:hover { background: var(--tint) }
+@media (min-width: 640px) { .bs-wide .bs-modal-h { padding: 20px 32px } .bs-wide .bs-modal-b { padding: 24px 32px } }
+
+.bs-auth { display: flex; flex-direction: column; gap: 18px }
+.bs-auth form { display: flex; flex-direction: column; gap: 16px }
+.bs-field { display: flex; flex-direction: column; gap: 4px; min-width: 0 }
+.bs-field > span.bs-lbl { font-size: 14px; font-weight: 600 }
+.bs-field > span.bs-lbl small { font-weight: 400; color: var(--stone) }
+.bs-field .bs-hint { font-size: 13px; color: var(--stone) }
+.bs-input { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: #fff; font-size: 16px }
+.bs-input::placeholder { color: #a8a29e }
+.bs-input:focus { outline: none; border-color: var(--g2); box-shadow: 0 0 0 3px var(--tint2) }
+.bs-pwd { position: relative }
+.bs-pwd .bs-input { padding-right: 46px }
+.bs-pwd button { position: absolute; top: 0; right: 0; bottom: 0; width: 44px; border: 0; background: none; color: var(--stone); cursor: pointer; display: inline-flex; align-items: center; justify-content: center }
+.bs-pwd button:hover { color: var(--g1) }
+.bs-grid2 { display: grid; gap: 16px }
+@media (min-width: 640px) { .bs-grid2 { grid-template-columns: 1fr 1fr; align-items: start } }
+.bs-section-t { color: var(--g1); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase }
+.bs-section-h { color: var(--stone); font-size: 12px; margin-top: 2px }
+.bs-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.bs-role { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; border: 2px solid var(--line); border-radius: 12px; padding: 12px; cursor: pointer; transition: border-color .2s, background .2s }
+.bs-role:hover { border-color: #86efac }
+.bs-role:has(input:checked) { border-color: var(--g2); background: var(--tint); color: var(--g1) }
+.bs-role input { position: absolute; opacity: 0; pointer-events: none }
+.bs-role b { font-size: 14px }
+.bs-role small { color: var(--stone); font-size: 12px; line-height: 1.3 }
+.bs-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 3px; background: #fafaf9 }
+.bs-seg label { position: relative; padding: 7px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--stone) }
+.bs-seg label:has(input:checked) { background: #fff; color: var(--g1); box-shadow: 0 1px 3px rgba(0,0,0,.1) }
+.bs-seg input { position: absolute; opacity: 0; pointer-events: none }
+.bs-submit { min-height: 50px !important; font-size: 17px !important; width: 100% }
+.bs-switch { border-top: 1px solid var(--line); padding-top: 16px; text-align: center; color: var(--stone); font-size: 14px }
+.bs-switch button { border: 0; background: none; padding: 0; color: var(--g1); font-weight: 700; cursor: pointer; font-size: 14px }
+.bs-switch button:hover { text-decoration: underline }
+.bs-forgot { align-self: flex-end; border: 0; background: none; padding: 0; cursor: pointer; color: var(--g1); text-decoration: underline; font-size: 14px; font-weight: 600 }
+.bs-page-auth { max-width: 28rem; margin: 0 auto; padding: 40px 16px 64px }
+.bs-page-auth.bs-wide { max-width: 44rem }
+.bs-page-auth .bs-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px }
+.bs-page-auth h1 { font-size: 26px; font-weight: 800 }
+
+@keyframes bsWordIn { from { opacity: 0; transform: translateY(70%) rotateX(-40deg); filter: blur(4px) } to { opacity: 1; transform: none; filter: none } }
+@keyframes bsFadeUp { from { opacity: 0; transform: translateY(24px) } to { opacity: 1; transform: none } }
+@keyframes bsZoom { from { transform: scale(1.05) } to { transform: scale(1) } }
+@keyframes bsUnderline { from { background-size: 0% .12em } to { background-size: 100% .12em } }
+@keyframes bsPulse { 50% { opacity: .4 } }
+@keyframes bsModalIn { from { opacity: 0; transform: translateY(12px) scale(.97) } to { opacity: 1; transform: none } }
+@media (prefers-reduced-motion: reduce) {
+  .bs-hero *, .bs-hero-img, .bs-modal { animation-duration: .01ms !important; animation-delay: 0ms !important }
+}
+
+/* Icône du bouton « Se connecter » : masquée sur petit écran pour laisser la place au menu */
+.bs-btn-ico { display: inline-flex }
+@media (max-width: 639px) { .bs-btn-ico { display: none } }
+
+/* Logo du header : celui de la v2 (BUILD noir, SEN vert, accroche dessous) */
+.bs-hdr .logo .w { font-family: var(--font-logo), var(--font-display) }
+
+/* Logo du footer : celui de la v2, en blanc et vert clair sur le fond vert */
+.bs-footer .logo .w { font-family: var(--font-logo), var(--font-display) }
+.bs-footer .logo .b { color: #fff }
+.bs-footer .logo .s { color: #bbf7d0 }
+.bs-footer .logo .t { color: rgba(255,255,255,.75) }
+.bs-footer a.logo:hover { text-decoration: none }
+
+/* Choix du statut pro (second modal) et rappel du choix dans le formulaire */
+button.bs-role { position: relative; background: #fff; font: inherit; color: inherit; width: 100% }
+.bs-role.bs-on { border-color: var(--g2); background: var(--tint); color: var(--g1) }
+.bs-kind-dlg .bs-roles { gap: 10px }
+.bs-kind-dlg .bs-role { padding: 18px 12px }
+.bs-kind { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid #86efac; background: var(--tint); border-radius: 12px; padding: 10px 14px }
+.bs-kind span { display: inline-flex; align-items: center; gap: 8px; color: var(--g1); font-size: 14px }
+.bs-kind button { border: 0; background: none; padding: 0; color: var(--g1); font-weight: 700; font-size: 14px; text-decoration: underline; cursor: pointer }
+
+/* Justificatifs dans le formulaire pro */
+.bs-docs { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px }
+.bs-doc { display: flex; align-items: center; gap: 12px; border: 1px dashed #a8a29e; border-radius: 12px; padding: 10px 12px; background: #fafaf9 }
+.bs-doc.bs-doc-ok { border: 1px solid #86efac; background: var(--tint) }
+.bs-doc-ico { display: inline-flex; color: var(--stone); flex: none }
+.bs-doc-ok .bs-doc-ico { color: var(--g2) }
+.bs-doc-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px }
+.bs-doc-txt b { font-size: 14px }
+.bs-doc-txt b small { font-weight: 400; color: var(--stone) }
+.bs-doc-txt > small { color: var(--stone); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.bs-doc-btn { flex: none; border: 1px solid var(--g2); color: var(--g1); background: #fff; border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 700; cursor: pointer }
+.bs-doc-btn:hover { background: var(--tint) }
+.bs-doc-del { border-color: var(--line); color: var(--stone); padding: 5px; display: inline-flex }
+
+/* ===== Espace connecté (particulier) : en-tête, menu à gauche, barre d'onglets en bas sur téléphone ===== */
+.bs-app { min-height: 100dvh; background: #f6f9f7 }
+.bs-app-hdr { position: sticky; top: 0; z-index: 30; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px; background: #fff; border-bottom: 1px solid var(--line) }
+.bs-app-hdr .logo .w { font-family: var(--font-logo), var(--font-display) }
+.bs-app-who { display: flex; align-items: center; gap: 10px; min-width: 0 }
+.bs-app-name { display: none; flex-direction: column; line-height: 1.2; min-width: 0 }
+.bs-app-name b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.bs-app-name small { font-size: 12px; color: var(--stone) }
+.bs-app-out { display: none; margin-left: 6px }
+.bs-avatar { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--g2); color: #fff; font-weight: 800; font-size: 14px; flex: none }
+.bs-avatar-lg { width: 72px; height: 72px; font-size: 26px }
+.bs-app-body { display: block }
+/* Téléphone : le menu latéral disparaît, seule la barre d'onglets reste */
+.bs-side { display: contents }
+.bs-side-nav { display: none }
+.bs-app-main { padding: 18px 16px calc(96px + env(safe-area-inset-bottom)); min-width: 0 }
+
+.bs-side .bs-side-nav { flex-direction: column; gap: 4px }
+.bs-side-nav a { position: relative; display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 10px; color: var(--stone); font-weight: 600; font-size: 15px; text-decoration: none; transition: background .15s, color .15s }
+.bs-side-nav a:hover { background: var(--tint); color: var(--g1) }
+.bs-side-nav a.on { background: var(--g2); color: #fff; box-shadow: 0 6px 14px rgba(21,128,61,.25) }
+.bs-side-nav a .bs-count { margin-left: auto }
+.bs-side-nav a.on .bs-count { background: #fff; color: var(--g1) }
+.bs-count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 99px; background: var(--g2); color: #fff; font-size: 12px; font-weight: 800; font-style: normal }
+
+.bs-tabbar { position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: #fff; border-top: 1px solid var(--line); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); box-shadow: 0 -6px 18px rgba(0,0,0,.05) }
+.bs-tabbar a { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 2px; border-radius: 10px; color: var(--stone); font-size: 11.5px; font-weight: 600; text-decoration: none }
+.bs-tabbar a.on { color: var(--g2) }
+.bs-tabbar a.on .bs-tab-ico { background: var(--tint2) }
+.bs-tab-ico { position: relative; display: inline-grid; place-items: center; width: 48px; height: 30px; border-radius: 99px; transition: background .15s }
+.bs-tab-ico .bs-count { position: absolute; top: -4px; right: 2px; min-width: 18px; height: 18px; font-size: 11px }
+/* Bouton d'aide WhatsApp au-dessus de la barre d'onglets */
+body:has(.bs-tabbar) .help-fab { bottom: calc(80px + env(safe-area-inset-bottom)) }
+.bs-logout-m { display: flex; justify-content: center }
+
+@media (min-width: 900px) {
+  .bs-app-name { display: flex }
+  .bs-app-out { display: block }
+  .bs-app-body { display: grid; grid-template-columns: 248px minmax(0, 1fr) }
+  .bs-side-nav { display: flex }
+  .bs-side { display: block; position: sticky; top: 64px; height: calc(100dvh - 64px); overflow-y: auto; background: #fff; border-right: 1px solid var(--line); padding: 20px 14px }
+  .bs-app-main { padding: 28px 36px 56px }
+  .bs-tabbar, .bs-logout-m { display: none }
+  body:has(.bs-tabbar) .help-fab { bottom: 20px }
+}
+
+/* Pages de l'espace */
+.bs-page { display: flex; flex-direction: column; gap: 20px; width: 100% }
+.bs-narrow { max-width: 760px }
+.bs-page-h { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap }
+.bs-page-h h1 { font-size: 26px; font-weight: 800; letter-spacing: -.01em }
+.bs-page-h p { color: var(--stone); font-size: 14px; margin-top: 2px }
+.bs-page-h .btn, .bs-welcome .btn, .bs-empty-box .btn { display: inline-flex; align-items: center; gap: 6px }
+
+.bs-welcome { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 26px 28px; border-radius: 18px; color: #fff; background: linear-gradient(135deg, var(--g2), var(--g1)); box-shadow: 0 14px 30px rgba(21,128,61,.22) }
+.bs-welcome h1 { font-size: 28px; font-weight: 800 }
+.bs-welcome p { color: rgba(255,255,255,.85); margin-top: 4px; max-width: 52ch }
+.bs-btn-white { background: #fff; color: var(--g1); border-color: #fff; font-weight: 700 }
+.bs-btn-white:hover { background: var(--tint) }
+
+.bs-stats-row { display: grid; gap: 12px }
+.bs-stat { display: flex; align-items: center; gap: 14px; padding: 16px; background: #fff; border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-decoration: none; transition: border-color .15s, box-shadow .15s }
+.bs-stat:hover { border-color: #86efac; box-shadow: 0 8px 18px rgba(0,0,0,.05) }
+.bs-stat > span:last-child { display: flex; flex-direction: column }
+.bs-stat b { font-size: 24px; font-weight: 800; line-height: 1.1 }
+.bs-stat small { color: var(--stone); font-size: 13px }
+/* Téléphone : 3 chiffres côte à côte, en version compacte */
+.bs-stats-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px }
+@media (max-width: 639px) {
+  .bs-stat { flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px }
+  .bs-stat .bs-ico { display: none }
+  .bs-stat b { font-size: 22px }
+  .bs-stat small { font-size: 12px; line-height: 1.3 }
+  .bs-welcome { padding: 20px }
+  .bs-welcome h1 { font-size: 24px }
+}
+@media (min-width: 640px) { .bs-stats-row { gap: 12px } }
+
+.bs-panel { display: flex; flex-direction: column; gap: 14px; padding: 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px }
+.bs-panel-h { display: flex; align-items: center; justify-content: space-between; gap: 10px }
+.bs-panel-h h2, .bs-panel-t { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800 }
+.bs-empty { color: var(--stone); font-size: 14px }
+.bs-notifs { list-style: none; margin: 0 -8px; padding: 0 }
+.bs-notifs li + li { border-top: 1px solid var(--line) }
+.bs-notifs a { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-radius: 10px; color: var(--ink); text-decoration: none }
+.bs-notifs a:hover { background: var(--tint) }
+.bs-notif-av { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--tint2); color: var(--g1); font-size: 13px; font-weight: 800; flex: none }
+.bs-notif-tx { flex: 1; min-width: 0; display: flex; flex-direction: column }
+.bs-notif-tx b { font-size: 14px }
+.bs-notif-tx small { color: var(--stone); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.bs-notif-lk { color: var(--g1); font-size: 13px; font-weight: 700; white-space: nowrap }
+
+/* Mes demandes */
+.bs-req-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px }
+.bs-req { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-decoration: none; transition: border-color .15s, box-shadow .15s, transform .15s }
+.bs-req:hover { border-color: #86efac; box-shadow: 0 10px 22px rgba(0,0,0,.06); transform: translateY(-1px) }
+.bs-req-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1 1 320px }
+.bs-req-main > b { font-size: 16px }
+.bs-req-top { display: flex; align-items: center; gap: 10px }
+.bs-req-ref { color: var(--stone); font-size: 12px; font-variant-numeric: tabular-nums }
+.bs-req-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--stone); font-size: 13px }
+.bs-req-meta span { display: inline-flex; align-items: center; gap: 5px }
+.bs-req-side { display: flex; align-items: center; gap: 14px; color: var(--stone) }
+.bs-req-side b { color: var(--ink); font-size: 15px }
+.bs-req-pros { display: inline-flex; align-items: center; gap: 8px; font-size: 13px }
+.bs-empty-box { align-items: center; text-align: center; padding: 36px 20px }
+.bs-empty-box h2 { font-size: 19px; font-weight: 800 }
+.bs-empty-box p { color: var(--stone); max-width: 46ch }
+.bs-empty-box .bs-ico { width: 56px; height: 56px; border-radius: 16px }
+
+/* Mon compte */
+.bs-profile { display: flex; align-items: center; gap: 16px; padding: 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px }
+.bs-profile h2 { font-size: 20px; font-weight: 800 }
+.bs-profile p { color: var(--stone); font-size: 14px }
+.bs-info { display: flex; flex-direction: column; margin: 0 }
+.bs-info > div { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 12px 0 }
+.bs-info > div + div { border-top: 1px solid var(--line) }
+.bs-info dt { display: inline-flex; align-items: center; gap: 8px; width: 150px; color: var(--stone); font-size: 14px }
+.bs-info dd { margin: 0; display: flex; flex-direction: column; gap: 2px; font-weight: 700; min-width: 0; overflow-wrap: anywhere }
+.bs-info dd small { font-weight: 400; color: var(--stone); font-size: 13px }
+.bs-info dd small.bs-ok { color: var(--g2); font-weight: 700 }
+.bs-info dd small.bs-todo { color: #b45309; font-weight: 700 }
+
+/* Nouvelle demande, partie par partie */
+.bs-wizard { display: flex; flex-direction: column; gap: 18px }
+.bs-wiz-bar { display: flex; flex-direction: column; gap: 10px; scroll-margin-top: 80px }
+.bs-wiz-track { height: 6px; border-radius: 99px; background: var(--tint2); overflow: hidden }
+.bs-wiz-track span { display: block; height: 100%; background: var(--g2); border-radius: 99px; transition: width .3s }
+.bs-wiz-bar ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px }
+.bs-wiz-bar li { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--stone); font-size: 12px; text-align: center }
+.bs-wiz-bar li i { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line); background: #fff; font-style: normal; font-weight: 800; font-size: 12px }
+.bs-wiz-bar li.done i { background: var(--tint2); border-color: var(--tint2); color: var(--g1) }
+.bs-wiz-bar li.on { color: var(--g1); font-weight: 700 }
+.bs-wiz-bar li.on i { background: var(--g2); border-color: var(--g2); color: #fff }
+@media (max-width: 559px) { .bs-wiz-bar li:not(.on) span { display: none } }
+.bs-wiz-part { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 14px }
+.bs-wiz-part[hidden] { display: none }
+.bs-wiz-t { padding: 0; margin-bottom: 4px; font-size: 18px; font-weight: 800 }
+.bs-wiz-opts, .bs-wiz-g2, .bs-wiz-g3 { display: grid; gap: 12px }
+@media (min-width: 560px) { .bs-wiz-opts, .bs-wiz-g2 { grid-template-columns: 1fr 1fr } .bs-wiz-g3 { grid-template-columns: repeat(3, 1fr) } }
+.bs-wizard .inp { min-height: 46px; border: 1px solid var(--line); border-radius: 10px; font-size: 16px; background: #fff }
+.bs-wizard .inp:focus { outline: none; border-color: var(--g2); box-shadow: 0 0 0 3px var(--tint2) }
+.bs-wizard .opt { border-radius: 12px; padding: 14px }
+.bs-recap { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden }
+.bs-recap > div { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 14px }
+.bs-recap > div + div { border-top: 1px solid var(--line) }
+.bs-recap dt { color: var(--stone); font-size: 13px }
+.bs-recap dd { grid-column: 1; margin: 0; font-weight: 600; overflow-wrap: anywhere }
+.bs-recap button { grid-column: 2; grid-row: 1 / span 2; align-self: center; border: 0; background: none; color: var(--g1); font-weight: 700; font-size: 13px; text-decoration: underline; cursor: pointer }
+.bs-wiz-nav { display: flex; justify-content: space-between; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line) }
+.bs-wiz-nav .btn { display: inline-flex; align-items: center; gap: 6px }
+
+/* Détail d'une demande et messagerie (espace particulier) */
+.bs-back { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; color: var(--g1); font-weight: 700; font-size: 14px; text-decoration: none }
+.bs-back:hover { text-decoration: underline }
+.bs-req-head { display: flex; flex-direction: column; gap: 10px; padding: 22px; background: #fff; border: 1px solid var(--line); border-radius: 16px }
+.bs-req-head h1 { font-size: 24px; font-weight: 800; letter-spacing: -.01em; overflow-wrap: anywhere }
+.bs-req-head-f { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; margin-top: 4px; border-top: 1px solid var(--line) }
+.bs-budget { display: flex; flex-direction: column }
+.bs-budget small { color: var(--stone); font-size: 13px }
+.bs-budget b { color: var(--g1); font-size: 22px; font-weight: 800 }
+.bs-req-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start }
+.bs-req-cols > *, .bs-page > * { min-width: 0 }
+@media (min-width: 1000px) { .bs-req-cols { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) } }
+.bs-details > .card { padding: 0; border: 0; background: none; box-shadow: none }
+.bs-details .budget { font-size: 22px }
+
+.bs-panel-list { padding: 8px 16px }
+.bs-conv-list { list-style: none; margin: 0 -8px; padding: 0 }
+.bs-conv-list li + li { border-top: 1px solid var(--line) }
+.bs-conv { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-radius: 12px; color: var(--ink); text-decoration: none; transition: background .15s }
+.bs-conv:hover { background: var(--tint) }
+.bs-conv > svg { color: var(--stone) }
+.bs-conv-tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px }
+.bs-conv-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px }
+.bs-conv-top b { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.bs-conv-top small { color: var(--stone); font-size: 12px; white-space: nowrap }
+.bs-conv-who { color: var(--stone); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.bs-conv-last { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--stone); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.bs-unread .bs-conv-last, .bs-unread .bs-conv-top b { color: var(--ink); font-weight: 700 }
+.bs-unread .bs-conv-top small { color: var(--g2); font-weight: 700 }
+.bs-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g2); flex: none }
+.bs-wa-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 99px; background: var(--tint2); color: var(--g1); font-size: 12px; font-weight: 700; white-space: nowrap }
+
+/* Conversation */
+.bs-conv-page .conv-grid { gap: 20px; grid-template-columns: minmax(0, 1fr) }
+@media (min-width: 1100px) { .bs-conv-page .conv-grid { grid-template-columns: minmax(0, 1fr) 320px } }
+.bs-conv-page .conv-main { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 16px }
+.bs-conv-page .conv-head { padding-bottom: 14px; border-bottom: 1px solid var(--line) }
+.bs-conv-page .conv-head h1 { font-size: 20px !important; font-weight: 800 }
+.bs-conv-page .avatar { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--g2); color: #fff; font-weight: 800; flex: none }
+.bs-conv-page .chat { min-height: 260px; max-height: 55vh; background: #f6f9f7; border-radius: 14px; padding: 16px }
+.bs-conv-page .bubble { border-radius: 16px 16px 16px 4px; box-shadow: 0 1px 2px rgba(0,0,0,.04) }
+.bs-conv-page .bubble.me { background: var(--g2); border-color: var(--g2); border-radius: 16px 16px 4px 16px }
+.bs-conv-page .composer { flex-direction: row; align-items: flex-end; flex-wrap: wrap }
+.bs-conv-page .composer textarea { flex: 1 1 240px; min-height: 52px; border: 1px solid var(--line); border-radius: 12px; font-size: 16px; resize: vertical }
+.bs-conv-page .composer textarea:focus { outline: none; border-color: var(--g2); box-shadow: 0 0 0 3px var(--tint2) }
+.bs-conv-page .composer .btn { align-self: flex-end !important; min-height: 52px; padding: 0 22px }
+.bs-conv-page .composer .err-t { flex-basis: 100% }
+.bs-conv-page .conv-side .card { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: none }
+.bs-conv-page .share-box { border: 1px solid #86efac; border-radius: 16px; padding: 18px }
+.bs-conv-page .share-box .btn { justify-content: center }
+@media (max-width: 899px) { .bs-conv-page .chat { max-height: 50vh } .bs-conv-page .conv-main { padding: 14px } }
+
+/* Espace particulier, v2 : sans en-tête ; logo en haut du menu, compte en bas */
+.bs-m-hdr { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; height: 56px; padding: 0 16px; background: #fff; border-bottom: 1px solid var(--line) }
+.bs-m-hdr .logo .t, .bs-side-top .logo .t { display: none }
+.bs-m-hdr .logo .w, .bs-side-top .logo .w { font-family: var(--font-logo), var(--font-display) }
+.bs-side-top, .bs-side-bottom { display: none }
+@media (min-width: 900px) {
+  .bs-m-hdr { display: none }
+  .bs-side { top: 0; height: 100dvh; display: flex; flex-direction: column; gap: 6px; padding: 22px 14px 16px }
+  .bs-side-top { display: block; padding: 0 10px 22px }
+  .bs-side-top .logo .t { display: block }
+  .bs-side-bottom { display: block; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line) }
+  .bs-app-main { padding: 32px 40px 56px }
+}
+.bs-account { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px; border: 0; border-radius: 12px; background: none; color: var(--ink); text-align: left; font: inherit; cursor: pointer; transition: background .15s }
+.bs-account:hover { background: var(--tint) }
+.bs-account > svg { color: var(--stone); margin-left: auto }
+.bs-account-tx { display: flex; flex-direction: column; min-width: 0; line-height: 1.25 }
+.bs-account-tx b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.bs-account-tx small { color: var(--stone); font-size: 12px }
+.bs-logout { display: flex; flex-direction: column; gap: 16px }
+.bs-logout-who { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: var(--tint) }
+.bs-logout-who span:last-child { display: flex; flex-direction: column }
+.bs-logout-who small { color: var(--stone); font-size: 13px }
+.bs-logout p { color: var(--stone); font-size: 14px }
+.bs-logout-act { display: flex; justify-content: flex-end; gap: 10px }
+.bs-logout-act .btn, .bs-logout-btn { display: inline-flex; align-items: center; gap: 6px }
+
+/* Tableau de bord : bienvenue */
+/* « Bonjour Prénom Nom » et la main sur la même ligne, à la taille du texte */
+.bs-hello { font-size: 30px; font-weight: 800; letter-spacing: -.01em; line-height: 1.2 }
+.bs-nowrap { white-space: nowrap }
+.bs-hello .bs-wave { display: inline-block; vertical-align: -.12em; margin-left: .3em }
+.bs-hello .bs-wave svg { display: block; width: 1em; height: 1em }
+.bs-wave { color: var(--g2); transform-origin: 70% 80%; animation: bsWave 1.6s ease-in-out .3s 2 }
+@keyframes bsWave { 0%, 60%, 100% { transform: rotate(0) } 10%, 30% { transform: rotate(16deg) } 20%, 40% { transform: rotate(-8deg) } }
+@media (max-width: 639px) { .bs-hello { font-size: 24px } }
+@media (prefers-reduced-motion: reduce) { .bs-wave { animation: none } }
+
+/* Mes demandes : la carte est un bouton qui ouvre le détail */
+button.bs-req { width: 100%; text-align: left; font: inherit; cursor: pointer }
+.bs-req-modal { display: flex; flex-direction: column; gap: 16px }
+.bs-req-head-in { display: flex; flex-direction: column; gap: 8px }
+.bs-req-head-in h3 { font-size: 20px; font-weight: 800; overflow-wrap: anywhere }
+.bs-req-sec { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line) }
+.bs-req-sec h4 { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800 }
+
+/* Mon compte, centré */
+.bs-centered { max-width: 720px; margin: 0 auto }
+.bs-center-t { text-align: center; font-size: 26px; font-weight: 800 }
+.bs-centered .bs-profile { flex-direction: column; text-align: center; padding: 28px 20px }
+
+/* Bouton « Nouvelle demande » : à côté du titre, version compacte sur téléphone */
+.bs-sm { display: none }
+.bs-page-h-row { flex-direction: column; align-items: stretch; gap: 2px }
+.bs-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px }
+.bs-title-row h1 { min-width: 0 }
+.bs-new-btn { flex: none; border-radius: 99px; padding-inline: 18px; box-shadow: 0 8px 18px rgba(21,128,61,.25) }
+@media (max-width: 639px) {
+  .bs-lg { display: none }
+  .bs-sm { display: inline }
+  .bs-new-btn { min-height: 42px; padding: 0 16px 0 12px; font-size: 15px }
+  .bs-page-h-row h1 { font-size: 24px }
+}
+
+/* Carrousel d'annonces du tableau de bord (téléphone uniquement) */
+.bs-promo { display: flex; flex-direction: column; gap: 10px }
+.bs-promo-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; border-radius: 18px; scrollbar-width: none; -webkit-overflow-scrolling: touch }
+.bs-promo-track::-webkit-scrollbar { display: none }
+.bs-slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; min-height: 230px; display: flex; align-items: flex-end; background-size: cover; background-color: var(--g1); color: #fff; overflow: hidden }
+.bs-slide::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 30%, rgba(5,46,22,.55) 55%, rgba(5,46,22,.93) 100%) }
+.bs-slide-in > h3, .bs-slide-in > p { text-shadow: 0 1px 8px rgba(0,0,0,.35) }
+.bs-slide-ad { background: linear-gradient(135deg, var(--g2), var(--g1)) }
+.bs-slide-ad::before { display: none }
+.bs-slide-in { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 18px }
+.bs-slide-k { padding: 3px 10px; border-radius: 99px; background: rgba(255,255,255,.18); backdrop-filter: blur(4px); font-size: 12px; font-weight: 700; letter-spacing: .02em }
+.bs-slide-in > h3 { font-size: 20px; font-weight: 800; line-height: 1.2 }
+.bs-slide-in > p { color: rgba(255,255,255,.88); font-size: 14px; line-height: 1.4 }
+/* Le modal ouvert depuis une diapositive ne doit pas hériter du texte blanc */
+.bs-slide .bs-modal { text-shadow: none; text-align: left }
+.bs-slide-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; min-height: 40px; padding: 0 16px; border-radius: 99px; font-size: 14px }
+@media (min-width: 900px) { .bs-promo { display: none } }
+/* Téléphone : le carrousel occupe tout l'espace libre entre les notifications et la barre d'onglets */
+@media (max-width: 899px) {
+  .bs-dash { min-height: calc(100dvh - 56px - 18px - 96px - env(safe-area-inset-bottom)) }
+  .bs-dash .bs-promo { flex: 1 1 auto; min-height: 300px }
+  .bs-dash .bs-promo-track { flex: 1 1 auto }
+  .bs-dash .bs-slide { min-height: 100% }
+  .bs-dash .bs-slide-in { padding: 22px 20px }
+  .bs-dash .bs-slide-in > h3 { font-size: 23px }
+}
+
+/* KPIs : nombre centré, libellé en dessous */
+.bs-stat { flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center }
+.bs-stat .bs-ico { display: none }
+.bs-stat > span:last-child { align-items: center }
+.bs-stat b { font-size: 28px }
+@media (max-width: 639px) { .bs-stat { align-items: center; padding: 14px 8px } .bs-stat b { font-size: 24px } }
+
+@media (max-width: 899px) {
+  .bs-dash .bs-slide-in > h3 { font-size: 20px }
+  .bs-dash .bs-slide-in > p { font-size: 13px }
+  .bs-dash .bs-slide-btn { min-height: 38px; margin-top: 4px }
+}
+/* Le carrousel prend exactement la hauteur libre au-dessus de la barre d'onglets */
+@media (max-width: 899px) {
+  .bs-dash { height: calc(100dvh - 52px - 6px - 96px - env(safe-area-inset-bottom)); min-height: 0 }
+  .bs-dash .bs-promo { min-height: 290px }
+  .bs-dash .bs-promo-track, .bs-dash .bs-slide { min-height: 0 }
+}
+
+/* Téléphone : BUILDSEN centré, sans barre séparée : l'en-tête fait partie de la même section que « Bonjour » */
+.bs-m-hdr { justify-content: center; background: #f6f9f7; border-bottom: 0; height: 52px }
+.bs-m-hdr + .bs-app-body .bs-app-main { padding-top: 6px }
+
+
+.bs-voice-steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px }
+.bs-voice-steps i { height: 5px; border-radius: 99px; background: var(--tint2) }
+.bs-voice-steps i.done { background: #86efac }
+.bs-voice-steps i.on { background: var(--g2) }
+.bs-mic { display: inline-grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; border: 0; background: var(--g2); color: #fff; cursor: pointer; box-shadow: 0 10px 24px rgba(21,128,61,.35); transition: box-shadow .1s, transform .15s }
+.bs-mic:hover { transform: scale(1.04) }
+.bs-mic.rec { background: #dc2626; box-shadow: 0 0 0 8px rgba(220,38,38,.18) }
+.bs-mic:disabled { opacity: .6; cursor: wait }
+.bs-voice-opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px }
+.bs-voice-opts button { padding: 8px 12px; border: 1px solid var(--line); border-radius: 99px; background: #fff; font: inherit; font-size: 13.5px; cursor: pointer }
+.bs-voice-opts button:hover { border-color: var(--g2); background: var(--tint) }
+.bs-voice-typed { display: flex; flex-direction: column; gap: 8px; align-items: flex-start }
+.bs-va .inp { min-height: 46px; border: 1px solid var(--line); border-radius: 10px; font-size: 16px; width: 100% }
+.bs-link { border: 0; background: none; padding: 0; color: var(--g1); font-weight: 700; font-size: 13.5px; text-decoration: underline; cursor: pointer }
+
+.bs-dots { display: inline-flex; gap: 4px }
+.bs-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.85); animation: bsDot 1s infinite ease-in-out }
+.bs-dots i:nth-child(2) { animation-delay: .15s } .bs-dots i:nth-child(3) { animation-delay: .3s }
+@keyframes bsChatIn { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+@keyframes bsDot { 0%, 80%, 100% { opacity: .3; transform: scale(.8) } 40% { opacity: 1; transform: scale(1) } }
+@media (prefers-reduced-motion: reduce) { .bs-chat-msg, .bs-dots i, .bs-voice-live i { animation: none } }
+
+
+/* Assistant vocal : un seul bouton micro ; récapitulatif affiché et lu à la fin */
+.bs-va { display: flex; flex-direction: column; gap: 18px }
+.bs-va-stage { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 26px 0 10px }
+.bs-va-mic { position: relative; width: 112px; height: 112px }
+.bs-va-mic::before, .bs-va-mic::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(21,128,61,.35); opacity: 0; pointer-events: none }
+.bs-va-stage.speaking .bs-va-mic::before, .bs-va-stage.speaking .bs-va-mic::after { animation: bsRing 1.8s ease-out infinite }
+.bs-va-stage.speaking .bs-va-mic::after { animation-delay: .9s }
+.bs-va-stage.thinking .bs-va-mic { background: #a3b8a9 }
+.bs-va-status { font-size: 16px; font-weight: 800; color: var(--ink); text-align: center }
+.bs-va-stage.recording .bs-va-status { color: #dc2626 }
+.bs-va-replay { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 4px 8px; color: var(--g1); font-weight: 700; font-size: 13.5px; cursor: pointer }
+.bs-va-replay:disabled { opacity: .4; cursor: default }
+.bs-va-recap { margin: 0 }
+.bs-va-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line) }
+.bs-va-foot .btn { display: inline-flex; align-items: center; gap: 4px }
+@keyframes bsRing { 0% { transform: scale(1); opacity: .9 } 100% { transform: scale(1.7); opacity: 0 } }
+@media (prefers-reduced-motion: reduce) { .bs-va-mic::before, .bs-va-mic::after { animation: none !important } }
+.bs-back-voice { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; text-decoration: none }
+
+/* WhatsApp : bouton, QR code, connexion par code */
+.bs-wa-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; background: #1fa855; color: #fff; font-weight: 700; padding-inline: 18px; min-height: 44px; border-radius: 12px; cursor: pointer }
+.bs-wa-btn:hover { background: #178a45 }
+.bs-wa-qr { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center }
+.bs-wa-qr img { width: 220px; height: 220px; border: 1px solid var(--line); border-radius: 14px; padding: 8px; background: #fff }
+.bs-wa-qr p { color: var(--stone); font-size: 14px; max-width: 36ch }
+.bs-wa-alt { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 46px; border: 1.5px solid #86efac; border-radius: 12px; background: var(--tint); color: var(--g1); font: inherit; font-weight: 700; cursor: pointer }
+.bs-wa-alt:hover { background: var(--tint2) }
+.bs-code { letter-spacing: .5em; text-align: center; font-size: 24px !important; font-weight: 800; font-variant-numeric: tabular-nums }
+.bs-wa-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 16px 18px; border-radius: 16px; background: var(--tint); border: 1px solid #86efac }
+.bs-wa-card div { display: flex; flex-direction: column; gap: 2px; min-width: 0 }
+.bs-wa-card b { font-size: 16px }
+.bs-wa-card span { color: var(--stone); font-size: 14px }
+
+/* Saisie de la demande par étapes : accessible et facile au doigt */
+.bs-wiz-count { margin: 0; font-size: 15px; color: var(--stone) }
+.bs-wiz-count b { color: var(--g1) }
+.bs-wiz-t:focus { outline: none }
+.bs-wizard .opt { display: flex; flex-direction: column; gap: 4px; cursor: pointer; border: 1.5px solid var(--line); background: #fff; min-height: 56px; justify-content: center }
+.bs-wizard .opt.on { border-color: var(--g2); background: var(--tint, #eef6ee) }
+.bs-wizard .opt:focus-within { box-shadow: 0 0 0 3px var(--tint2) }
+.bs-wizard .opt input[type="radio"] { width: 22px; height: 22px; accent-color: var(--g2); flex: none }
+.bs-wiz-big { grid-template-columns: minmax(0, 1fr) !important }
+@media (min-width: 700px) { .bs-wiz-big { grid-template-columns: 1fr 1fr !important } }
+.bs-wiz-more { border: 1px dashed var(--line); border-radius: 12px; padding: 10px 14px }
+.bs-wiz-more summary { cursor: pointer; font-weight: 600; color: var(--g1); min-height: 32px; display: flex; align-items: center }
+.bs-wiz-more[open] summary { margin-bottom: 12px }
+.bs-wiz-chips { display: flex; flex-wrap: wrap; gap: 8px }
+.bs-wiz-chips button { min-height: 44px; padding: 0 16px; border: 1.5px solid var(--line); background: #fff; border-radius: 99px; font: inherit; font-weight: 600; cursor: pointer }
+.bs-wiz-chips button.on, .bs-wiz-chips button:hover { border-color: var(--g2); background: var(--tint, #eef6ee) }
+.bs-wiz-nav .btn { min-height: 48px; padding: 0 22px }
+/* Boutons Précédent / Suivant toujours visibles en bas de la fenêtre, même quand la liste de choix est longue */
+.bs-wiz-nav { position: sticky; bottom: -1px; background: #fff; padding: 12px 0 calc(8px + env(safe-area-inset-bottom)); z-index: 2 }
+
+/* Alerte rouge à côté de la rubrique « Demandes validées » du menu */
+.bs-count.bs-count-red { background: #d92d20; color: #fff; box-shadow: 0 0 0 0 rgba(217, 45, 32, .55); animation: bs-count-pulse 1.8s ease-out infinite }
+.bs-side-nav a.on .bs-count.bs-count-red { background: #d92d20; color: #fff }
+@keyframes bs-count-pulse { 0% { box-shadow: 0 0 0 0 rgba(217, 45, 32, .55) } 70%, 100% { box-shadow: 0 0 0 9px rgba(217, 45, 32, 0) } }
+@media (prefers-reduced-motion: reduce) { .bs-count.bs-count-red { animation: none } }
+
+/* Rubrique « Validée par … » dans le détail d'une demande */
+.bs-validated { border: 1.5px solid #12b76a; background: #ecfdf3; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px }
+.bs-validated-wait { border-color: var(--line); background: #f8faf8 }
+.bs-validated-h { display: flex; align-items: center; gap: 12px }
+.bs-validated-h > div { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0 }
+.bs-validated-h small { color: var(--stone) }
+.bs-validated-ico { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: #12b76a; color: #fff }
+.bs-validated-wait .bs-validated-ico { background: var(--line); color: var(--stone) }
+.bs-validated-l { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px }
+.bs-validated-l a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; background: #fff; border: 1px solid #abefc6; text-decoration: none; color: inherit }
+.bs-validated-l a > span:nth-child(2) { display: flex; flex-direction: column; flex: 1; min-width: 0 }
+.bs-validated-l small { color: var(--stone) }
+.bs-new-tag { flex: none; padding: 3px 10px; border-radius: 99px; background: #d92d20; color: #fff; font-size: 12px; font-weight: 800 }
+
+/* Page « Validations » : les cartes occupent toute la zone de droite */
+.bs-validated-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 16px; align-items: start }
+
+/* Accueil pro : quatre indicateurs, alerte rouge quand quelque chose attend une réponse */
+.bs-stats-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+@media (min-width: 900px) { .bs-stats-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) } }
+.bs-stat-hot { border-color: #d92d20; background: #fff5f4 }
+.bs-stat-hot b { color: #d92d20 }
+.bs-stat-hot .bs-ico { background: #d92d20; color: #fff }
+
+/* ---------- Accueil épuré ---------- */
+.bs-h2 { margin: 0 auto 28px; max-width: 42rem; text-align: center; font-size: 26px; line-height: 1.2; font-weight: 800; color: var(--ink) }
+@media (min-width: 640px) { .bs-h2 { font-size: 34px; margin-bottom: 40px } }
+.bs-trust-lite { list-style: none; margin: 0 auto; padding: 0; max-width: 56rem; display: grid; gap: 16px }
+.bs-trust-lite li { display: flex; gap: 14px; align-items: flex-start }
+.bs-trust-lite h3 { margin: 0; font-size: 18px }
+.bs-trust-lite p { margin: 4px 0 0; color: var(--slate); line-height: 1.5 }
+@media (min-width: 768px) { .bs-trust-lite { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px } .bs-trust-lite li { flex-direction: column } }
+.bs-warn-lite { margin: 28px auto 0; max-width: 42rem; text-align: center; color: var(--slate); font-size: 16px }
+.bs-final-lite { max-width: 36rem; margin: 0 auto; text-align: center }
+.bs-final-lite h2 { margin: 0; font-size: 28px; font-weight: 800 }
+.bs-final-lite p { margin: 10px 0 0; color: var(--slate); font-size: 18px }
+.bs-final-lite .btn { margin-top: 22px; min-height: 52px; font-size: 17px; padding: 12px 24px }
+
+/* Lien d'accès rapide au contenu (clavier) */
+.skip-link { position: absolute; left: 8px; top: -60px; z-index: 100; background: var(--g1); color: var(--white); padding: 12px 18px; border-radius: 8px; font-weight: 700; text-decoration: none }
+.skip-link:focus { top: 8px }
