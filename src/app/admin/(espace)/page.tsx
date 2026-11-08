@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { api } from "@/lib/api";
+import { api, requireAdmin } from "@/lib/api";
+import { MailCheck } from "./MailCheck";
 
 export const metadata = { title: "Vue d'ensemble · Administration BUILDSEN" };
 
@@ -7,6 +8,10 @@ type Overview = { pros: number; verified: number; pending: number; more: number;
 
 export default async function Overview() {
   const o = await api<Overview>("/api/admin/overview");
+  const me = await requireAdmin();
+  const mail = me.admin.adminRole === "SUPER" || me.admin.adminRole === "SUPPORT"
+    ? await api<{ configured: boolean; problem: string | null; from: string; last: { ok: boolean | null; error: string | null; at: string | null } }>("/api/admin/mail").catch(() => null)
+    : null;
   const k: [string, number][] = [["Professionnels inscrits", o.pros], ["Profils vérifiés", o.verified], ["Dossiers à examiner", o.pending], ["Compléments en attente", o.more], ["Particuliers inscrits", o.clients],
     ...(o.clientsOpen ? [["Demandes en ligne", o.published], ["Demandes signalées", o.flagged], ["Conversations ouvertes", o.conversations], ["Signalements à traiter", o.reports]] as [string, number][] : [])];
   return (
@@ -20,6 +25,7 @@ export default async function Overview() {
           {o.pending > 0 && <Link className="li" href="/admin/dossiers"><div className="grow"><b>{o.pending} dossier{o.pending > 1 ? "s" : ""} à examiner</b></div><span className="btn o sm">Ouvrir</span></Link>}
         </div>
       )}
+      {mail && <MailCheck status={mail} />}
     </>
   );
 }
