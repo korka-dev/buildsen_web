@@ -15,8 +15,8 @@ export function AdminLoginForm() {
     <form onSubmit={onSubmit} className="stack">
       <label className="f">E-mail<input className="inp" name="email" type="email" required autoComplete="username" /></label>
       <label className="f">Mot de passe<input className="inp" name="password" type="password" required autoComplete="current-password" /></label>
-      <label className="f">Code de double authentification<span className="h">6 chiffres affichés par votre application d&apos;authentification</span>
-        <input className="inp num" name="code" inputMode="numeric" maxLength={7} required autoComplete="one-time-code" /></label>
+      <label className="f">Code de double authentification<span className="h">6 chiffres de votre application d&apos;authentification (facultatif si la double authentification est désactivée)</span>
+        <input className="inp num" name="code" inputMode="numeric" maxLength={7} autoComplete="one-time-code" /></label>
       <Msg s={s} />
       <button className="btn d" disabled={pending}>Se connecter</button>
     </form>
@@ -31,7 +31,7 @@ export function ActivateForm({ token }: { token: string }) {
       <label className="f">Choisissez votre mot de passe<span className="h">12 caractères minimum. Personne d&apos;autre ne le connaîtra.</span>
         <input className="inp" name="password" type="password" required minLength={12} autoComplete="new-password" /></label>
       <label className="f">Confirmez le mot de passe<input className="inp" name="password2" type="password" required minLength={12} autoComplete="new-password" /></label>
-      <label className="f">Code affiché par l&apos;application<input className="inp num" name="code" inputMode="numeric" maxLength={7} required autoComplete="one-time-code" /></label>
+      <label className="f">Code affiché par l&apos;application (si la double authentification est active)<input className="inp num" name="code" inputMode="numeric" maxLength={7} autoComplete="one-time-code" /></label>
       <Msg s={s} />
       <button className="btn d" disabled={pending}>Activer mon accès</button>
     </form>
